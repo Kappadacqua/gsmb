@@ -1,7 +1,7 @@
 /**
  * Credenziali è la classe che contiene le credenziali degli utenti che fanno il login.
  * <p>
- * Questa classe è serializzabile e viene usa nella classe Vettore {@link Vettore}
+ * Questa classe è serializzabile {@link java.io.Serializable} e viene usa nella classe Vettore {@link Vettore}
  */
 public class Credenziali implements java.io.Serializable {
     private final String username;
