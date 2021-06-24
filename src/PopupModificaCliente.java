@@ -4,6 +4,7 @@ class PopupModificaCliente extends JPopupMenu {
     private int selectedrow;
     private JTable table;
 
+    private VettoreOrdini ordini_del_cliente;
     public PopupModificaCliente(JTable table) {
         //create poput items
         this.table = table;
@@ -21,8 +22,9 @@ class PopupModificaCliente extends JPopupMenu {
 
     }
 
-    public void setrow(int selectedrow) {
+    public void setRow(int selectedrow, VettoreOrdini ordini_del_cliente) {
         this.selectedrow = selectedrow;
+        this.ordini_del_cliente = ordini_del_cliente;
     }
 
 

@@ -5,10 +5,11 @@ import java.awt.event.MouseEvent;
 
 
 public class PanelOrdiniAdmin extends JPanel {
+    private final PopupModificaAdmin popModificaAdmin;
     private final JTable table;
-    private final PopupModificaAdmin popmodifica;
-    private final ListSelectionModel selezioneModel;
     String filename = "OrdiniClientiCriptati.txt";  //il file dove vengono salvati tutti gli ordini
+    private final ListSelectionModel selezioneModel;
+
     private int selectedrow;
     private final VettoreOrdini ordini_totali;
 
@@ -23,7 +24,7 @@ public class PanelOrdiniAdmin extends JPanel {
         JLabel scritta_iniziale = new JLabel("Benvenuto Admin " + nome);
         TableOrdiniUser dataModel = new TableOrdiniUser();
         table = new JTable(dataModel);
-        popmodifica = new PopupModificaAdmin(table);
+        popModificaAdmin = new PopupModificaAdmin(table);
         selezioneModel = table.getSelectionModel();
 
         pulsante_da_ordini_admin_a_accesso_admin.addActionListener(e -> frame_principale.toCard("Panel accesso"));
@@ -43,7 +44,7 @@ public class PanelOrdiniAdmin extends JPanel {
                 {
                     //determine id right clicked
                     if (SwingUtilities.isRightMouseButton(me)) {
-                        popmodifica.show(me.getComponent(), me.getX(), me.getY());
+                        popModificaAdmin.show(me.getComponent(), me.getX(), me.getY());
 
                     }
                 }
@@ -55,12 +56,13 @@ public class PanelOrdiniAdmin extends JPanel {
             if (!selezioneModel.isSelectionEmpty()) {
 
                 selectedrow = selezioneModel.getMinSelectionIndex();//selectdrow=indice della riga
-                popmodifica.setRow(selectedrow);//popmodifica ottiene l'indice della riga
+                popModificaAdmin.setRow(selectedrow, ordini_totali);//popmodifica ottiene l'indice della riga
               /*  System.out.println(table.getValueAt(selectedrow, 2));//PERCHE LO FA 2 VOLTE ??
                 System.out.println("meme");*/
                 // se la riga che evidenzio con tasto destro equivale a una di quelle condizioni, allora mostro solo il pulsante relativo a quelle condizioni
-                popmodifica.setTasti(table.getValueAt(selectedrow, 2).equals("RIMBORSO EROGATO") || (table.getValueAt(selectedrow, 2).equals("RICEVUTA")));//fancy
-                ordini_totali.save();
+                /*     popmodifica.setTasti(table.getValueAt(selectedrow, 2).equals("RIMBORSO EROGATO") || (table.getValueAt(selectedrow, 2).equals("RICEVUTA")));//fancy*/
+                /*  ordini_totali.save();*/
+                table.updateUI();
             }
         });
 

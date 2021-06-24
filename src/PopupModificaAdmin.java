@@ -7,10 +7,11 @@ class PopupModificaAdmin extends JPopupMenu implements ActionListener {
     private final JTable table;
     private final JMenu modifica;
     private final JMenuItem elimina;
-
+    private VettoreOrdini ordini_totali;
     public PopupModificaAdmin(JTable table) {
         //create poput items
         this.table = table;
+        this.ordini_totali = ordini_totali;
         elimina = new JMenuItem("elimina");
         modifica = new JMenu("modifica");
 
@@ -41,7 +42,10 @@ class PopupModificaAdmin extends JPopupMenu implements ActionListener {
         modifica.add(menuItem6);
 
 
-        elimina.addActionListener(e -> JOptionPane.showMessageDialog(elimina, "eliminato"));
+        elimina.addActionListener(e -> {
+            JOptionPane.showMessageDialog(elimina, "eliminato");
+            ordini_totali.removeAndSave(ordini_totali.get(selectedrow));
+        });
 
         /*modifica.setEnabled(false);
         elimina.setEnabled(false);
@@ -80,12 +84,13 @@ class PopupModificaAdmin extends JPopupMenu implements ActionListener {
             table.setValueAt("RIMBORSO RICHIESTO", selectedrow, 2);
         else if (nome.equals("RIMBORSO EROGATO"))
             table.setValueAt("RIMBORSO EROGATO", selectedrow, 2);
-
+        ordini_totali.save();
 
     }
 
-    public void setRow(int selectedrow) {
+    public void setRow(int selectedrow, VettoreOrdini ordini_totali) {
         this.selectedrow = selectedrow;
+        this.ordini_totali = ordini_totali;
     }
 
 
