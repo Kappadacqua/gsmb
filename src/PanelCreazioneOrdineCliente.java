@@ -12,20 +12,18 @@ import java.util.regex.Pattern;
 public class PanelCreazioneOrdineCliente extends JPanel implements ActionListener {
 
     String filename = "OrdiniClientiCriptati.txt";  //il file dove vengono salvate tutte le credenziali
-    private JRadioButton spedizione_normale, spedizione_assicurata;
-    private CardLayout cl;
-    private JPanel home;
-    private JButton pulsante_da_panel_creazione_ordine_cliente_a_panel_ordini_cliente;
-    private JButton salva;
-    private JRadioButton b1, b2;
-    private JTextField destinazione;
-    private JTextField peso;
-    private JTextField rimborso;
-    private JTextField codice;
-    private JTextField stato;
-    private JTextField f;//prova
+
+    private final CardLayout cl;
+    private final JPanel home;
+    private final JButton salva;
+    private final JTextField destinazione;
+    private final JTextField peso;
+    private final JTextField rimborso;
+    private final JTextField codice;
+    private final JTextField stato;
+    private final JTextField f;//prova
     private boolean flagspedizione = false;//FALSE=SPEDIZIONE NORMALE /TRUE =SPEDIZIONE ASSICURATA
-    private JLabel esito;
+    private final JLabel esito;
 
 
     public PanelCreazioneOrdineCliente(CardLayout cl, JPanel home) {
@@ -35,8 +33,8 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
         this.cl = cl;
         this.home = home;
         esito = new JLabel("");
-        b1 = new JRadioButton("spedizione normale");
-        b2 = new JRadioButton("spedizione assicurata");
+        JRadioButton b1 = new JRadioButton("spedizione normale");
+        JRadioButton b2 = new JRadioButton("spedizione assicurata");
         destinazione = new JTextField("inserisci destinazione");
         peso = new JTextField("inserisci peso");
         rimborso = new JTextField("inserisci rimborso");
@@ -88,7 +86,7 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
         destinazione.setBackground(Color.darkGray);
 
 
-        pulsante_da_panel_creazione_ordine_cliente_a_panel_ordini_cliente = new JButton("indietro");
+        JButton pulsante_da_panel_creazione_ordine_cliente_a_panel_ordini_cliente = new JButton("indietro");
         pulsante_da_panel_creazione_ordine_cliente_a_panel_ordini_cliente.addActionListener(e -> cl.show(home, "Panel ordini cliente"));
         add(pulsante_da_panel_creazione_ordine_cliente_a_panel_ordini_cliente);
         ButtonGroup grp = new ButtonGroup();

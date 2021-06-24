@@ -1,26 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class PanelIngresso extends JPanel {
 
-    private JLabel titolo;
-    private JButton pulsante_da_ingresso_a_accesso;
-    private JPanel home;
-    private GSMBFrame frame_principale;
+/**
+ * PanelIngresso è la classe che funge da ingresso al programma
+ * <p>
+ */
+public class PanelIngresso extends JPanel {
 
     public PanelIngresso(GSMBFrame frame_principale) {
         super();
-        this.frame_principale = frame_principale;
-        this.home = home;
-
         setBackground(Color.yellow);
-
-        titolo = new JLabel("");
-        pulsante_da_ingresso_a_accesso = new JButton("da ingresso a user");
-
-
+        JLabel titolo = new JLabel("GESTORE SPEDIZIONI MATTEO BALUGANI");
+        JButton pulsante_da_ingresso_a_accesso = new JButton("da ingresso a user");
         pulsante_da_ingresso_a_accesso.addActionListener(e -> frame_principale.toCard("Panel accesso"));
-
+        add(titolo);
         add(pulsante_da_ingresso_a_accesso);
     }
 

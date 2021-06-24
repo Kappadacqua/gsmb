@@ -1,68 +1,36 @@
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 
-
+/**
+ * Panel accesso è la classe che gestisce  il login, sia per l'user che per l'admin
+ * <p>
+ */
 public class PanelAccesso extends JPanel {
 
-    String filename = "CredenzialiCriptate.txt";
-
-    private JLabel label_iniziale; //scritta iniziale
-    private JLabel label_user; //scritta user
-    private JLabel label_pass; //scritta password
-    private JLabel label_esito; //dice se il login è fallito o se ha avuto successo
-    private JTextField field_username; //campo utente
-    private JPasswordField field_password; //campo password criptato
-    private GSMBFrame frame_principale;
-    private JPanel home;
-    private JButton pulsante_login; //pulsante invio
-    private JButton pulsante_da_accesso_generale_a_registrazione;
-    private JButton pulsante_da_accesso_generale_a_main;
+    private final JLabel label_esito; //dice se il login è fallito o se ha avuto successo
+    private final JTextField field_username; //campo utente
+    private final JPasswordField field_password; //campo password criptato
+    String nomefile = "CredenzialiCriptate.txt";
     private VettoreCredenziali vettore_credenziali;
 
     public PanelAccesso(GSMBFrame frame_principale, ActionListener Onpulsanteclick) {
+
         super();
-        this.frame_principale = frame_principale;
 
-        label_iniziale = new JLabel("Gestore spedizioni Matteo Balugani");
-        label_user = new JLabel("Credenziali");
-        label_pass = new JLabel("Password");
         label_esito = new JLabel("");
-
         field_username = new JTextField("", 20);
         field_password = new JPasswordField("", 20);
-
-        pulsante_login = new JButton("invio");
-        pulsante_da_accesso_generale_a_registrazione = new JButton("registrati");
-        pulsante_da_accesso_generale_a_main = new JButton("da user a ingresso");
+        JLabel label_iniziale = new JLabel("Gestore spedizioni Matteo Balugani");//scritta iniziale
+        JLabel label_user = new JLabel("Credenziali"); //scritta user
+        JLabel label_pass = new JLabel("Password"); //scritta password
+        JButton pulsante_login = new JButton("invio");//pulsante invio
+        JButton pulsante_da_accesso_generale_a_registrazione = new JButton("registrati");//pulsante registrati
+        JButton pulsante_da_accesso_generale_a_main = new JButton("da user a ingresso");//pulsante torna al panel ingresso
         pulsante_login.addActionListener(Onpulsanteclick);
         pulsante_login.addActionListener(e -> {
 
-
-            // Deserialization
-            try {
-                // Reading the object from a file
-                FileInputStream file = new FileInputStream(filename);
-                ObjectInputStream in = new ObjectInputStream(file);
-
-                // Method for deserialization of object
-                vettore_credenziali = (VettoreCredenziali) in.readObject();
-
-                in.close();
-                file.close();
-
-
-            } catch (IOException ex) {
-                System.out.println("IOException is caught");
-            } catch (ClassNotFoundException ex) {
-                System.out.println("ClassNotFoundException is caught");
-            }
-
-
+            vettore_credenziali = new VettoreCredenziali(nomefile);
             String nome_utente = provaLoginUtente();
-
             if (nome_utente == null)
                 label_esito.setText("errore: username e/o password errata");
             else if (nome_utente.equals(VettoreCredenziali.CREDENZIALI_ADMIN.toUsername())) {
@@ -77,8 +45,6 @@ public class PanelAccesso extends JPanel {
                                 field_password.setText("");  //mette password vuota subito dopo aver eseguito il login
                             }
                         }, 1000);
-
-
             } else {
                 label_esito.setText("login user avvenuto con successo");
                 new java.util.Timer().schedule(
@@ -91,8 +57,6 @@ public class PanelAccesso extends JPanel {
                                 field_password.setText("");  //mette password vuota subito dopo aver eseguito il login
                             }
                         }, 1000);
-
-
             }
 
 
