@@ -14,7 +14,4 @@ public interface SpedizioneTabella {
 
     void modificaStato(String nuovostato);
 
-    /* void modificaPeso(float nuovoprezzo);*/
-
-    /* void modificaDestinazione(String nuovadestinazione);*/
 }

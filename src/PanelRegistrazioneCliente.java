@@ -3,18 +3,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Panel registrazione cliente è il panel dove il cliente può creare un nuovo profilo per il programma
+ * <p>
+ */
 public class PanelRegistrazioneCliente extends JPanel implements ActionListener {
 
     String filename = "CredenzialiCriptate.txt";  //il file dove vengono salvate tutte le credenziali
-    private JTextField username; //JTextField dove viene immessa l'username
-    private JTextField indirizzo; //JTextField dove viene immessa l'indirizzo
-    private JTextField password;//JTextField dove viene immessa la password
-    private JTextField controllopasword;//JTextField dove viene immessa la password una seconda volta per controllare che ti vada bene
-    private JButton conferma;//conferma dell'invio di quei dati
-    private JLabel esito; //esito dell'invio
-    private JButton pulsante_da_registrazione_a_accesso_user;
-    private CardLayout cl;
-    private JPanel home;
+    private final JTextField username; //JTextField dove viene immessa l'username
+    private final JTextField indirizzo; //JTextField dove viene immessa l'indirizzo
+    private final JTextField password;//JTextField dove viene immessa la password
+    private final JTextField controllopasword;//JTextField dove viene immessa la password una seconda volta per controllare che ti vada bene
+    private final JLabel esito; //esito dell'invio
+    private final CardLayout cl;
+    private final JPanel home;
 
     public PanelRegistrazioneCliente(CardLayout cl, JPanel home) {
         super();
@@ -27,9 +29,10 @@ public class PanelRegistrazioneCliente extends JPanel implements ActionListener 
         indirizzo = new JTextField("indirizzo", 25);
         password = new JTextField("password", 25);
         controllopasword = new JTextField("rimetti password", 25);
-        conferma = new JButton("conferma");
+        //conferma dell'invio di quei dati
+        JButton conferma = new JButton("conferma");
         esito = new JLabel("");
-        pulsante_da_registrazione_a_accesso_user = new JButton("torna indietro");
+        JButton pulsante_da_registrazione_a_accesso_user = new JButton("torna indietro");
         conferma.addActionListener(this);
         pulsante_da_registrazione_a_accesso_user.addActionListener(e -> cl.show(home, "Panel accesso"));
 

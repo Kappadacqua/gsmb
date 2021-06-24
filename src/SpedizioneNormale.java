@@ -56,13 +56,6 @@ public class SpedizioneNormale implements Serializable, SpedizioneTabella {
 
 
 
-  /* public void modificaPeso(float nuovopeso){
-        peso=nuovopeso;
-    }*/
-
-   /*public void modificaDestinazione(String nuovadestinazione){
-        destinazione=nuovadestinazione;
-    }*/
 }
 
 
