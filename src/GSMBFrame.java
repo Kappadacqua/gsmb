@@ -7,7 +7,7 @@ import java.awt.*;
 public class GSMBFrame extends JFrame {
     private final CardLayout cl;  // TODO: Cambiare a private e scrivere un getter
 
-    private PanelAccessoCliente panelaccessocliente; // primo panel
+
     private PanelOrdiniCliente panelordinicliente;
     private PanelCreazioneOrdineCliente panelcreazioneordinecliente;
     private final JPanel home;
@@ -19,27 +19,20 @@ public class GSMBFrame extends JFrame {
         home = new JPanel(cl);
         home.setBackground(Color.black);
 
-        PanelIngresso panelingresso = new PanelIngresso(cl, home);
+        PanelIngresso panelingresso = new PanelIngresso(this);
         home.add(panelingresso, "Panel ingresso");
 
 
-        panelaccessocliente = new PanelAccessoCliente(cl, home, e -> {
-            panelordinicliente.setUsername(panelaccessocliente.getUsername());
-            panelcreazioneordinecliente.setUsername(panelaccessocliente.getUsername());
-        });
-        home.add(panelaccessocliente, "Panel accesso user");
 
         PanelRegistrazioneCliente panelregistrazionecliente = new PanelRegistrazioneCliente(cl, home);
         home.add(panelregistrazionecliente, "Panel registrazione");
 
-        PanelAccessoAdmin panelaccessoadmin = new PanelAccessoAdmin(cl, home);
-        home.add(panelaccessoadmin, "Panel accesso admin");
 
         panelaccesso = new PanelAccesso(this, e -> {
             panelcreazioneordinecliente.setUsername(panelaccesso.getUsername());
             panelordinicliente.setUsername(panelaccesso.getUsername());
         });
-        home.add(panelaccesso, "Panel accesso admin");
+        home.add(panelaccesso, "Panel accesso");
 
         panelordinicliente = new PanelOrdiniCliente(cl, home);
         home.add(panelordinicliente, "Panel ordini cliente");

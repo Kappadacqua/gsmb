@@ -29,4 +29,9 @@ public class Credenziali implements java.io.Serializable {
     public String toIndirizzo() {
         return indirizzo;
     }
+
+    public boolean verificaCredenziali(String username, String password) {
+        return this.username.equals(username) && this.password.equals(password);
+
+    }
 }

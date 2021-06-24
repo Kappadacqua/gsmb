@@ -5,14 +5,14 @@
 /**
  * Main è la classe principale, da essa viene fatto avviare il programma.
  * <p>
- * Questa classe crea un nuovo {@link GestoreSpedizioniMatteoBaluganiFrame}
+ * Questa classe crea un nuovo {@link GSMBFrame}
  */
 class Main {
 
 
     public static void main(String[] args) {
 
-        new GestoreSpedizioniMatteoBaluganiFrame();
+        new GSMBFrame();
 
     }
 }

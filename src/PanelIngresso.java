@@ -4,28 +4,24 @@ import java.awt.*;
 public class PanelIngresso extends JPanel {
 
     private JLabel titolo;
-    private JButton pulsante_da_ingresso_a_accesso_user;
-    private JButton pulsante_da_ingresso_ad_accesso_admin;
-    private CardLayout cl;
+    private JButton pulsante_da_ingresso_a_accesso;
     private JPanel home;
+    private GSMBFrame frame_principale;
 
-
-    public PanelIngresso(CardLayout cl, JPanel home) {
+    public PanelIngresso(GSMBFrame frame_principale) {
         super();
-        this.cl = cl;
+        this.frame_principale = frame_principale;
         this.home = home;
 
         setBackground(Color.yellow);
 
         titolo = new JLabel("");
-        pulsante_da_ingresso_a_accesso_user = new JButton("da ingresso a user");
-        pulsante_da_ingresso_ad_accesso_admin = new JButton("da ingresso ad admin");
+        pulsante_da_ingresso_a_accesso = new JButton("da ingresso a user");
 
-        pulsante_da_ingresso_a_accesso_user.addActionListener(e -> cl.show(home, "Panel accesso user"));
-        pulsante_da_ingresso_ad_accesso_admin.addActionListener(e -> cl.show(home, "Panel accesso admin"));
 
-        add(pulsante_da_ingresso_a_accesso_user);
-        add(pulsante_da_ingresso_ad_accesso_admin);
+        pulsante_da_ingresso_a_accesso.addActionListener(e -> frame_principale.toCard("Panel accesso"));
+
+        add(pulsante_da_ingresso_a_accesso);
     }
 
 }

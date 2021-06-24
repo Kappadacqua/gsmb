@@ -32,7 +32,7 @@ public class PanelRegistrazioneCliente extends JPanel implements ActionListener 
         esito = new JLabel("");
         pulsante_da_registrazione_a_accesso_user = new JButton("torna indietro");
         conferma.addActionListener(this);
-        pulsante_da_registrazione_a_accesso_user.addActionListener(e -> cl.show(home, "Panel accesso user"));
+        pulsante_da_registrazione_a_accesso_user.addActionListener(e -> cl.show(home, "Panel accesso"));
 
         add(username);
         add(indirizzo);
@@ -46,7 +46,7 @@ public class PanelRegistrazioneCliente extends JPanel implements ActionListener 
 
     public void actionPerformed(ActionEvent e) {
         String tasto = e.getActionCommand();                  //tasto ottiene il nome del tasto
-        Vettore b = new Vettore();                            //il vettore b viene usato per deserializzare i dati
+        VettoreCredenziali vettore_credenziali = new VettoreCredenziali();                            //il vettore b viene usato per deserializzare i dati
         boolean flagcorretto = true;                         //se flagcorretto vale true, i nuovi dati sono accettati e vengono salvati nel file CredenzialiCriptate.txt, se vale false invece c'è un errore nei dati immessi
 
         // Deserialization
@@ -56,7 +56,7 @@ public class PanelRegistrazioneCliente extends JPanel implements ActionListener 
             ObjectInputStream in = new ObjectInputStream(file);
 
             // Method for deserialization of object
-            b = (Vettore) in.readObject();
+            vettore_credenziali = (VettoreCredenziali) in.readObject();
 
             in.close();
             file.close();
@@ -70,8 +70,8 @@ public class PanelRegistrazioneCliente extends JPanel implements ActionListener 
 
 
         if (tasto.equals("conferma")) {             //se viene premuto il tasto conferma
-            for (int i = 0; i < b.size(); i++) {  //scorre tutti gli oggetti persona Credenziali contenuti nel vettore
-                if (username.getText().equals(b.get(i).toUsername())) {        //se uno di quegli oggetti ha lo stesso nome del nuovo nome che vuoi usare
+            for (Credenziali credenziali : vettore_credenziali) {  //scorre tutti gli oggetti persona Credenziali contenuti nel vettore
+                if (username.getText().equals(credenziali.toUsername())) {        //se uno di quegli oggetti ha lo stesso nome del nuovo nome che vuoi usare
                     esito.setText("username già preso");                     //errore: username gia preso
                     flagcorretto = false;
                 }
@@ -82,7 +82,7 @@ public class PanelRegistrazioneCliente extends JPanel implements ActionListener 
                 flagcorretto = false;
             }
             if (flagcorretto) { //se non ci sono stati errori
-                b.aggiungi(new Credenziali(username.getText(), password.getText(), indirizzo.getText()));  //aggiungi le nuove Credenziali al vettore b e serializzalo
+                vettore_credenziali.add(new Credenziali(username.getText(), password.getText(), indirizzo.getText()));  //aggiungi le nuove Credenziali al vettore b e serializzalo
 
                 try {
 
@@ -90,7 +90,7 @@ public class PanelRegistrazioneCliente extends JPanel implements ActionListener 
                     ObjectOutputStream out = new ObjectOutputStream(file);
 
                     // Method for serialization of object
-                    out.writeObject(b);
+                    out.writeObject(vettore_credenziali);
 
                     out.close();
                     file.close();
