@@ -34,7 +34,7 @@ public class PanelOrdiniCliente extends JPanel implements ActionListener {
         s = new JLabel("Benvenuto " + textfield_username_nascosto.getText());
         pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente.addActionListener(e -> cl.show(home, "Panel creazione ordine cliente"));
         pulsante_da_ordini_user_a_accesso_user.addActionListener(e -> {
-            cl.show(home, "Panel accesso user");
+            cl.show(home, "Panel accesso");
             ordini_del_cliente = new VettoreOrdini<>();
      /*   for(int i=ordini_del_cliente.size();i>0;i--)
             {

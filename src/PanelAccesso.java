@@ -14,7 +14,7 @@ public class PanelAccesso extends JPanel {
     private JLabel label_pass; //scritta password
     private JLabel label_esito; //dice se il login è fallito o se ha avuto successo
     private JTextField field_username; //campo utente
-    private JTextField field_password; //campo password criptato
+    private JPasswordField field_password; //campo password criptato
     private GSMBFrame frame_principale;
     private JPanel home;
     private JButton pulsante_login; //pulsante invio
@@ -32,7 +32,7 @@ public class PanelAccesso extends JPanel {
         label_esito = new JLabel("");
 
         field_username = new JTextField("", 20);
-        field_password = new JTextField("", 20);
+        field_password = new JPasswordField("", 20);
 
         pulsante_login = new JButton("invio");
         pulsante_da_accesso_generale_a_registrazione = new JButton("registrati");

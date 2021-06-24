@@ -63,7 +63,7 @@ public class PanelOrdiniAdmin extends JPanel implements ActionListener {
 
 
         pulsante_da_ordini_admin_a_accesso_admin.addActionListener(e -> {
-            cl.show(home, "Panel accesso admin");
+            cl.show(home, "Panel accesso");
             ordini_totali = new VettoreOrdini<>();
      /*   for(int i=ordini_del_cliente.size();i>0;i--)                      //bisogna trovare un metodo migliore per svuotare il vettore ordini_del_cliente
             {
