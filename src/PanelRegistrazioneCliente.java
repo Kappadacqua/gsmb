@@ -21,6 +21,9 @@ public class PanelRegistrazioneCliente extends JPanel implements ActionListener 
         super();
         this.cl = cl;
         this.home = home;
+
+        setBackground(Color.green);
+
         username = new JTextField("username", 25);
         indirizzo = new JTextField("indirizzo", 25);
         password = new JTextField("password", 25);

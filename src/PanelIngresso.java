@@ -14,6 +14,9 @@ public class PanelIngresso extends JPanel {
         super();
         this.cl = cl;
         this.home = home;
+
+        setBackground(Color.yellow);
+
         titolo = new JLabel("");
         pulsante_da_ingresso_a_accesso_user = new JButton("da ingresso a user");
         pulsante_da_ingresso_ad_accesso_admin = new JButton("da ingresso ad admin");
