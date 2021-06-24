@@ -4,19 +4,24 @@ import java.awt.*;
 /**
  * Card è il {@link JFrame} principale che contiene tutti gli altri sotto-{@link JPanel}.
  */
-public class GestoreSpedizioniMatteoBaluganiFrame extends JFrame {
+public class GSMBFrame extends JFrame {
+    private final CardLayout cl;  // TODO: Cambiare a private e scrivere un getter
+
     private PanelAccessoCliente panelaccessocliente; // primo panel
     private PanelOrdiniCliente panelordinicliente;
     private PanelCreazioneOrdineCliente panelcreazioneordinecliente;
+    private final JPanel home;
+    private PanelAccesso panelaccesso;
 
-    public GestoreSpedizioniMatteoBaluganiFrame() {
-        CardLayout cl = new CardLayout(5, 5); // margine
+    public GSMBFrame() {
+        cl = new CardLayout(5, 5); // margine
 
-        JPanel home = new JPanel(cl);
+        home = new JPanel(cl);
         home.setBackground(Color.black);
 
         PanelIngresso panelingresso = new PanelIngresso(cl, home);
         home.add(panelingresso, "Panel ingresso");
+
 
         panelaccessocliente = new PanelAccessoCliente(cl, home, e -> {
             panelordinicliente.setUsername(panelaccessocliente.getUsername());
@@ -29,6 +34,12 @@ public class GestoreSpedizioniMatteoBaluganiFrame extends JFrame {
 
         PanelAccessoAdmin panelaccessoadmin = new PanelAccessoAdmin(cl, home);
         home.add(panelaccessoadmin, "Panel accesso admin");
+
+        panelaccesso = new PanelAccesso(this, e -> {
+            panelcreazioneordinecliente.setUsername(panelaccesso.getUsername());
+            panelordinicliente.setUsername(panelaccesso.getUsername());
+        });
+        home.add(panelaccesso, "Panel accesso admin");
 
         panelordinicliente = new PanelOrdiniCliente(cl, home);
         home.add(panelordinicliente, "Panel ordini cliente");
@@ -48,6 +59,15 @@ public class GestoreSpedizioniMatteoBaluganiFrame extends JFrame {
         pack();
         setVisible(true);
         setExtendedState(JFrame.MAXIMIZED_BOTH); // mette fullscreen
+    }
+
+
+    public CardLayout getCardLayout() {
+        return cl;
+    }
+
+    public void toCard(String nome_panel) {
+        getCardLayout().show(home, nome_panel);
     }
 }
 
