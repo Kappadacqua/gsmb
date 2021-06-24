@@ -1,7 +1,12 @@
+/**
+ * Credenziali è la classe che contiene le credenziali degli utenti che fanno il login.
+ * <p>
+ * Questa classe è serializzabile e viene usa nella classe Vettore {@link Vettore}
+ */
 public class Credenziali implements java.io.Serializable {
-    private String username;
-    private String indirizzo;
-    private String password;
+    private final String username;
+    private final String indirizzo;
+    private final String password;
 
     public Credenziali(String username, String password, String indirizzo) {
         this.username = username;
