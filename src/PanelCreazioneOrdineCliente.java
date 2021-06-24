@@ -31,10 +31,10 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
         esito = new JLabel("");
         JRadioButton b1 = new JRadioButton("spedizione normale");
         JRadioButton b2 = new JRadioButton("spedizione assicurata");
-        destinazione = new JTextField("inserisci destinazione");
-        peso = new JTextField("inserisci peso");
-        rimborso = new JTextField("inserisci rimborso");
-        codice = new JTextField("premi genera per generare il codice");
+        destinazione = new JTextField("inserisci destinazione", 20);
+        peso = new JTextField("inserisci peso", 20);
+        rimborso = new JTextField("inserisci rimborso", 20);
+        codice = new JTextField("premi genera per generare il codice", 10);
         stato = new JTextField("IN PREPARAZIONE");
         salva = new JButton("crea");
         f = new JTextField(25);
@@ -83,7 +83,14 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
 
 
         JButton pulsante_da_panel_creazione_ordine_cliente_a_panel_ordini_cliente = new JButton("indietro");
-        pulsante_da_panel_creazione_ordine_cliente_a_panel_ordini_cliente.addActionListener(e -> frame_principale.toCard("Panel ordini cliente"));
+        pulsante_da_panel_creazione_ordine_cliente_a_panel_ordini_cliente.addActionListener(e -> {
+            frame_principale.toCard("Panel ordini cliente");
+            esito.setText("");
+            destinazione.setText("");
+            peso.setText("");
+            codice.setText("");
+            rimborso.setText("");
+        });
         add(pulsante_da_panel_creazione_ordine_cliente_a_panel_ordini_cliente);
         ButtonGroup grp = new ButtonGroup();
         grp.add(b1);
@@ -159,6 +166,12 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
                         public void run() {
                             frame_principale.toCard("Panel ordini cliente");
                             esito.setText("");
+                            destinazione.setText("");
+                            peso.setText("");
+                            codice.setText("");
+                            rimborso.setText("");
+
+
                         }
                     }, 1000);
         }

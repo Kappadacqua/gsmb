@@ -31,8 +31,18 @@ public class PanelAccesso extends JPanel {
 
             vettore_credenziali = new VettoreCredenziali(nomefile);
             String nome_utente = provaLoginUtente();
-            if (nome_utente == null)
+            if (nome_utente == null) {
                 label_esito.setText("errore: username e/o password errata");
+                new java.util.Timer().schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+
+                                label_esito.setText("");
+
+                            }
+                        }, 1000);
+            }
             else if (nome_utente.equals(VettoreCredenziali.CREDENZIALI_ADMIN.toUsername())) {
                 label_esito.setText("login admin avvenuto con successo");
                 new java.util.Timer().schedule(

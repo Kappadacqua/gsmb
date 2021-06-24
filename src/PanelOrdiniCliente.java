@@ -79,8 +79,6 @@ public class PanelOrdiniCliente extends JPanel {
     }
 
 
-
-
     public class TabelOrdiniUser extends AbstractTableModel {
         @Override
         public int getRowCount() {
