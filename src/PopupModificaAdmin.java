@@ -4,9 +4,9 @@ import java.awt.event.ActionListener;
 
 class PopupModificaAdmin extends JPopupMenu implements ActionListener {
     private int selectedrow;
-    private JTable table;
-    private JMenu modifica;
-    private JMenuItem elimina;
+    private final JTable table;
+    private final JMenu modifica;
+    private final JMenuItem elimina;
 
     public PopupModificaAdmin(JTable table) {
         //create poput items
@@ -41,14 +41,7 @@ class PopupModificaAdmin extends JPopupMenu implements ActionListener {
         modifica.add(menuItem6);
 
 
-        elimina.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-
-                JOptionPane.showMessageDialog(elimina, "eliminato");
-            }
-        });
+        elimina.addActionListener(e -> JOptionPane.showMessageDialog(elimina, "eliminato"));
 
         /*modifica.setEnabled(false);
         elimina.setEnabled(false);

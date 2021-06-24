@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -11,11 +10,10 @@ public class PanelOrdiniAdmin extends JPanel {
     private final ListSelectionModel selezioneModel;
     String filename = "OrdiniClientiCriptati.txt";  //il file dove vengono salvati tutti gli ordini
     private int selectedrow;
-    private VettoreOrdini ordini_totali;
-
+    private final VettoreOrdini ordini_totali;
 
     //il jtextfield username nascosto manca perchè il nome è scritto nel codice
-    public PanelOrdiniAdmin(CardLayout cl, JPanel home) {
+    public PanelOrdiniAdmin(GSMBFrame frame_principale) {
         super();
         ordini_totali = new VettoreOrdini(filename);
         JButton aggiorna2 = new JButton("aggiorna2");
@@ -28,19 +26,8 @@ public class PanelOrdiniAdmin extends JPanel {
         popmodifica = new PopupModificaAdmin(table);
         selezioneModel = table.getSelectionModel();
 
-        pulsante_da_ordini_admin_a_accesso_admin.addActionListener(e -> {
-            cl.show(home, "Panel accesso");
-
-     /*   for(int i=ordini_del_cliente.size();i>0;i--)                      //bisogna trovare un metodo migliore per svuotare il vettore ordini_del_cliente
-            {
-                ordini_del_cliente.rimuovi(ordini_del_cliente.get(i));
-            }
-*/
-        });
-
+        pulsante_da_ordini_admin_a_accesso_admin.addActionListener(e -> frame_principale.toCard("Panel accesso"));
         aggiorna2.addActionListener(e -> {
-
-
             table.updateUI();
             for (SpedizioneNormale spedizioneNormale : ordini_totali) {
                 System.out.println(spedizioneNormale.toStato()); //se cèè un solo elemento nel vettore va in errore, ma non dovrebbe essere davvero un problema
@@ -89,17 +76,6 @@ public class PanelOrdiniAdmin extends JPanel {
 
     public class TableOrdiniUser extends AbstractTableModel {
 
-
-
-
-
-
-       /* List<Color> rowColours = Arrays.asList(
-                Color.RED,
-                Color.GREEN,
-                Color.CYAN
-        );*/
-
         @Override
         public int getRowCount() {
             return ordini_totali.size();
@@ -131,12 +107,6 @@ public class PanelOrdiniAdmin extends JPanel {
         }
 
 
-
-        /*@Override
-        public Class<?> getColumnClass(int columnIndex) {   //a che serve ?
-            return String.class;
-        }*/
-
         public void setValueAt(Object value, int row, int
                 col) {
             SpedizioneTabella spedizione = ordini_totali.get(row);
@@ -147,23 +117,6 @@ public class PanelOrdiniAdmin extends JPanel {
             fireTableDataChanged();  //salva le modifiche sul vettore
         }
 
-
-
-
-     /*   public void setRowColour(int row, Color c) {
-            rowColours.set(row, c);
-            fireTableRowsUpdated(row, row);
-        }
-
-        public Color getRowColour(int row) {
-            return rowColours.get(row);
-        }
-
-
-        public boolean isCellEditable(int row, int col) {
-            return col == 2;
-        }
-*/
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {

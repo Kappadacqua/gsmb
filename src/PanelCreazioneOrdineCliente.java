@@ -13,8 +13,6 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
 
     String filename = "OrdiniClientiCriptati.txt";  //il file dove vengono salvate tutte le credenziali
 
-    private final CardLayout cl;
-    private final JPanel home;
     private final JButton salva;
     private final JTextField destinazione;
     private final JTextField peso;
@@ -24,14 +22,12 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
     private final JTextField f;//prova
     private boolean flagspedizione = false;//FALSE=SPEDIZIONE NORMALE /TRUE =SPEDIZIONE ASSICURATA
     private final JLabel esito;
+    private final GSMBFrame frame_principale;
 
-
-    public PanelCreazioneOrdineCliente(CardLayout cl, JPanel home) {
-
-
+    public PanelCreazioneOrdineCliente(GSMBFrame frame_principale) {
         super();
-        this.cl = cl;
-        this.home = home;
+        this.frame_principale = frame_principale;
+
         esito = new JLabel("");
         JRadioButton b1 = new JRadioButton("spedizione normale");
         JRadioButton b2 = new JRadioButton("spedizione assicurata");
@@ -87,7 +83,7 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
 
 
         JButton pulsante_da_panel_creazione_ordine_cliente_a_panel_ordini_cliente = new JButton("indietro");
-        pulsante_da_panel_creazione_ordine_cliente_a_panel_ordini_cliente.addActionListener(e -> cl.show(home, "Panel ordini cliente"));
+        pulsante_da_panel_creazione_ordine_cliente_a_panel_ordini_cliente.addActionListener(e -> frame_principale.toCard("Panel ordini cliente"));
         add(pulsante_da_panel_creazione_ordine_cliente_a_panel_ordini_cliente);
         ButtonGroup grp = new ButtonGroup();
         grp.add(b1);
@@ -161,7 +157,7 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
                     new java.util.TimerTask() {
                         @Override
                         public void run() {
-                            cl.show(home, "Panel ordini cliente");
+                            frame_principale.toCard("Panel ordini cliente");
                             esito.setText("");
                         }
                     }, 1000);

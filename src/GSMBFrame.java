@@ -23,7 +23,7 @@ public class GSMBFrame extends JFrame {
         home.add(panelingresso, "Panel ingresso");
 
 
-        PanelRegistrazioneCliente panelregistrazionecliente = new PanelRegistrazioneCliente(cl, home);
+        PanelRegistrazioneCliente panelregistrazionecliente = new PanelRegistrazioneCliente(this);
         home.add(panelregistrazionecliente, "Panel registrazione");
 
 
@@ -33,13 +33,13 @@ public class GSMBFrame extends JFrame {
         });
         home.add(panelaccesso, "Panel accesso");
 
-        panelordinicliente = new PanelOrdiniCliente(cl, home);
+        panelordinicliente = new PanelOrdiniCliente(this);
         home.add(panelordinicliente, "Panel ordini cliente");
 
-        panelcreazioneordinecliente = new PanelCreazioneOrdineCliente(cl, home);
+        panelcreazioneordinecliente = new PanelCreazioneOrdineCliente(this);
         home.add(panelcreazioneordinecliente, "Panel creazione ordine cliente");
 
-        PanelOrdiniAdmin panelordiniadmin = new PanelOrdiniAdmin(cl, home);
+        PanelOrdiniAdmin panelordiniadmin = new PanelOrdiniAdmin(this);
         home.add(panelordiniadmin, "Panel ordini admin");
 
         add(home);

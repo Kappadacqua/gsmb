@@ -67,6 +67,7 @@ public class PanelAccesso extends JPanel {
             field_username.setText("");
             field_password.setText("");
         });
+
         pulsante_da_accesso_generale_a_main.addActionListener(e -> {
             frame_principale.toCard("Panel ingresso");
             field_username.setText("");

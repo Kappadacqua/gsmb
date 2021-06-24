@@ -55,7 +55,6 @@ public class SpedizioneNormale implements Serializable, SpedizioneTabella {
     }
 
 
-
 }
 
 

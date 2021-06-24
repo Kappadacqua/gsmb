@@ -1,38 +1,28 @@
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
-public class PanelOrdiniCliente extends JPanel implements ActionListener {
+public class PanelOrdiniCliente extends JPanel {
     String filename = "OrdiniClientiCriptati.txt";  //il file dove vengono salvate tutte le credenziali
-    private JButton pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente;
-    private JLabel s; //scritta iniziale
-    private JTextField textfield_username_nascosto;//prova
-    private String nome = "";
-    private JButton pulsante_da_ordini_user_a_accesso_user;
-    private CardLayout cl;
-    private JPanel home;
-    private JButton aggiorna;
+    private final JLabel s; //scritta iniziale
+    private final JTextField textfield_username_nascosto;//prova
+    private final String nome = "";
     private JTable table;
     private PopupModificaCliente popmodificacliente;
     private Vector<SpedizioneNormale> ordini_del_cliente;
 
-    public PanelOrdiniCliente(CardLayout cl, JPanel home) {
+    public PanelOrdiniCliente(GSMBFrame frame_principale) {
         super();
-        this.cl = cl;
-        this.home = home;
-        aggiorna = new JButton("aggiorna");
-        pulsante_da_ordini_user_a_accesso_user = new JButton("logout");
+        JButton aggiorna = new JButton("aggiorna");
+        JButton pulsante_da_ordini_user_a_accesso_user = new JButton("logout");
         textfield_username_nascosto = new JTextField(25);
-        pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente = new JButton("crea un nuovo ordine");
+        JButton pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente = new JButton("crea un nuovo ordine");
         s = new JLabel("Benvenuto " + textfield_username_nascosto.getText());
-        pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente.addActionListener(e -> cl.show(home, "Panel creazione ordine cliente"));
+        pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente.addActionListener(e -> frame_principale.toCard("Panel creazione ordine cliente"));
         pulsante_da_ordini_user_a_accesso_user.addActionListener(e -> {
-            cl.show(home, "Panel accesso");
+            frame_principale.toCard("Panel accesso");
             ordini_del_cliente = new Vector<>();
      /*   for(int i=ordini_del_cliente.size();i>0;i--)
             {
@@ -45,7 +35,19 @@ public class PanelOrdiniCliente extends JPanel implements ActionListener {
         add(pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente);
 
         add(pulsante_da_ordini_user_a_accesso_user);
-        aggiorna.addActionListener(this);
+        aggiorna.addActionListener(e -> {
+
+            VettoreOrdini ordini_totali = new VettoreOrdini(filename);
+
+            // Deserialization
+
+            ordini_del_cliente = new Vector<>();
+            for (SpedizioneNormale spedizioneNormale : ordini_totali) {
+                if (spedizioneNormale.codice.startsWith(textfield_username_nascosto.getText()))
+                    ordini_del_cliente.add(spedizioneNormale);
+            }
+            table.updateUI();
+        });
         TabelOrdiniUser dataModel = new TabelOrdiniUser(); //non penso funzioni
         table = new JTable(dataModel);
         add(table);
@@ -77,19 +79,6 @@ public class PanelOrdiniCliente extends JPanel implements ActionListener {
     }
 
 
-    public void actionPerformed(ActionEvent e) {
-
-        VettoreOrdini ordini_totali = new VettoreOrdini(filename);
-
-        // Deserialization
-
-        ordini_del_cliente = new Vector<>();
-        for (SpedizioneNormale spedizioneNormale : ordini_totali) {
-            if (spedizioneNormale.codice.startsWith(textfield_username_nascosto.getText()))
-                ordini_del_cliente.add(spedizioneNormale);
-        }
-        table.updateUI();
-    }
 
 
     public class TabelOrdiniUser extends AbstractTableModel {
