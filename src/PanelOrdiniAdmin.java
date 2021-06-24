@@ -15,13 +15,13 @@ public class PanelOrdiniAdmin extends JPanel implements ActionListener {
     private final ListSelectionModel selezioneModel;
     String filename = "OrdiniClientiCriptati.txt";  //il file dove vengono salvati tutti gli ordini
     private int selectedrow;
-    private VettoreOrdini<SpedizioneNormale> ordini_totali;
+    private VettoreOrdini ordini_totali;
 
 
     //il jtextfield username nascosto manca perchè il nome è scritto nel codice
     public PanelOrdiniAdmin(CardLayout cl, JPanel home) {
         super();
-        ordini_totali = new VettoreOrdini<>();
+        ordini_totali = new VettoreOrdini();
         JButton aggiorna2 = new JButton("aggiorna2");
         JButton aggiorna = new JButton("aggiorna");
         JButton pulsante_da_ordini_admin_a_accesso_admin = new JButton("logout");
@@ -45,7 +45,7 @@ public class PanelOrdiniAdmin extends JPanel implements ActionListener {
                 // Method for deserialization of object
 
 
-                ordini_totali = (VettoreOrdini<SpedizioneNormale>) in.readObject();
+                ordini_totali = (VettoreOrdini) in.readObject();
                 in.close();
                 file.close();
 
@@ -64,7 +64,7 @@ public class PanelOrdiniAdmin extends JPanel implements ActionListener {
 
         pulsante_da_ordini_admin_a_accesso_admin.addActionListener(e -> {
             cl.show(home, "Panel accesso");
-            ordini_totali = new VettoreOrdini<>();
+            ordini_totali = new VettoreOrdini();
      /*   for(int i=ordini_del_cliente.size();i>0;i--)                      //bisogna trovare un metodo migliore per svuotare il vettore ordini_del_cliente
             {
                 ordini_del_cliente.rimuovi(ordini_del_cliente.get(i));
@@ -132,7 +132,7 @@ public class PanelOrdiniAdmin extends JPanel implements ActionListener {
             // Method for deserialization of object
 
 
-            ordini_totali = (VettoreOrdini<SpedizioneNormale>) in.readObject();
+            ordini_totali = (VettoreOrdini) in.readObject();
             in.close();
             file.close();
 
