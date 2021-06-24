@@ -1,0 +1,95 @@
+// Java code for serialization and deserialization
+// of a Java object
+import java.io.*;
+import java.util.Vector;
+
+class Vettore  implements java.io.Serializable {
+    private Vector numeri;
+
+    public Vettore() {
+   numeri=new Vector(10); }
+
+    public void aggiungi(int a){
+        numeri.add(a);
+    }
+    public void rimuovi(int p){
+        numeri.remove(p);
+    }
+    public int get(int index){
+        return (int) numeri.get(index);
+    }
+    public int size(){
+        return numeri.size();
+    }
+}
+
+class Main
+{
+
+    public static void main(String[] args)
+    {
+
+
+        Vettore a=new Vettore();
+        a.aggiungi(1);
+        a.aggiungi(2);
+        a.aggiungi(3);
+
+
+        String filename = "file.ser";
+
+        // Serialization
+        try
+        {
+            //Saving of object in a file
+            FileOutputStream file = new FileOutputStream(filename);
+            ObjectOutputStream out = new ObjectOutputStream(file);
+
+            // Method for serialization of object
+            out.writeObject(a);
+
+            out.close();
+            file.close();
+
+            System.out.println("Object has been serialized");
+
+        }
+
+        catch(IOException ex)
+        {
+            System.out.println("IOException is caught");
+        }
+
+
+        Vettore b = new Vettore();
+
+        // Deserialization
+        try
+        {
+            // Reading the object from a file
+            FileInputStream file = new FileInputStream(filename);
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            // Method for deserialization of object
+            b = (Vettore) in.readObject();
+
+            in.close();
+            file.close();
+
+            System.out.println("Object has been deserialized ");
+            for(int i=0;i<b.size();i++)
+                System.out.println(b.get(i));
+        }
+
+        catch(IOException ex)
+        {
+            System.out.println("IOException is caught");
+        }
+
+        catch(ClassNotFoundException ex)
+        {
+            System.out.println("ClassNotFoundException is caught");
+        }
+
+    }
+}

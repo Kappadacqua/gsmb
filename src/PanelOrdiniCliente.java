@@ -1,0 +1,196 @@
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
+public class PanelOrdiniCliente extends JPanel implements ActionListener {
+    String filename = "OrdiniClientiCriptati.txt";  //il file dove vengono salvate tutte le credenziali
+    private JButton pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente;
+    private JLabel s; //scritta iniziale
+    private JTextField textfield_username_nascosto;//prova
+    private String nome = "";
+    private JButton pulsante_da_ordini_user_a_accesso_user;
+    private CardLayout cl;
+    private JPanel home;
+    private JButton aggiorna;
+    private JTable table;
+    private PopupModificaCliente popmodificacliente;
+    private VettoreOrdini<SpedizioneNormale> ordini_del_cliente = new VettoreOrdini<>();
+
+    public PanelOrdiniCliente(CardLayout cl, JPanel home) {
+        super();
+        this.cl = cl;
+        this.home = home;
+        aggiorna = new JButton("aggiorna");
+        pulsante_da_ordini_user_a_accesso_user = new JButton("logout");
+        textfield_username_nascosto = new JTextField(25);
+        pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente = new JButton("crea un nuovo ordine");
+        s = new JLabel("Benvenuto " + textfield_username_nascosto.getText());
+        pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente.addActionListener(e -> cl.show(home, "Panel creazione ordine cliente"));
+        pulsante_da_ordini_user_a_accesso_user.addActionListener(e -> {
+            cl.show(home, "Panel accesso user");
+            ordini_del_cliente = new VettoreOrdini<>();
+     /*   for(int i=ordini_del_cliente.size();i>0;i--)
+            {
+                ordini_del_cliente.rimuovi(ordini_del_cliente.get(i));
+            }
+*/
+        });
+
+        add(s);
+        add(pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente);
+
+        add(pulsante_da_ordini_user_a_accesso_user);
+        aggiorna.addActionListener(this);
+        TabelOrdiniUser dataModel = new TabelOrdiniUser(); //non penso funzioni
+        table = new JTable(dataModel);
+        add(table);
+        add(aggiorna);
+        dataModel.addTableModelListener(e -> System.out.println(e.getColumn()));
+
+        table.setSize(650, 300);
+
+
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                {
+                    //determine id right clicked
+                    if (SwingUtilities.isRightMouseButton(me)) {
+                        popmodificacliente.show(me.getComponent(), me.getX(), me.getY());
+                    }
+                }
+            }
+
+        });
+
+    }
+
+
+    public void setUsername(String username) {
+        textfield_username_nascosto.setText(username);
+        s.setText("Benvenuto " + textfield_username_nascosto.getText());
+    }
+
+
+    public void actionPerformed(ActionEvent e) {
+
+        VettoreOrdini<SpedizioneNormale> ordini_totali = new VettoreOrdini<>();
+
+        // Deserialization
+        try {
+            // Reading the object from a file
+            FileInputStream file = new FileInputStream(filename);
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            // Method for deserialization of object
+
+
+            ordini_totali = (VettoreOrdini<SpedizioneNormale>) in.readObject();
+            in.close();
+            file.close();
+
+
+        } catch (IOException ex) {
+            System.out.println("IOException is caught");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("ClassNotFoundException is caught");
+        }
+
+
+        for (int i = 0; i < ordini_totali.size(); i++) {
+            if (ordini_totali.get(i).codice.startsWith(textfield_username_nascosto.getText()))
+                ordini_del_cliente.aggiungi(ordini_totali.get(i));
+        }
+        table.updateUI();
+    }
+
+
+    public class TabelOrdiniUser extends AbstractTableModel {
+        @Override
+        public int getRowCount() {
+            return ordini_del_cliente.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 6;
+        }
+
+        @Override
+        public String getColumnName(int columnIndex) {
+            switch (columnIndex) {
+                case 0:
+                    return "Destinazione";
+                case 1:
+                    return "Codice";
+                case 2:
+                    return "Stato";
+                case 3:
+                    return "Peso";
+                case 4:
+                    return "Data";
+                case 5:
+                    return "Valore assicurato";
+            }
+            return null;
+        }
+
+        @Override
+        public void setValueAt(Object value, int row, int
+                col) {
+            SpedizioneTabella spedizione = ordini_del_cliente.get(row);
+
+            if (col == 2)
+                spedizione.modificaStato((String) value);
+        /*    if (col == 0)
+                spedizione.modificaDestinazione((String)value);*/
+
+            fireTableDataChanged();
+        }
+
+
+        @Override
+        public boolean isCellEditable(int row, int col) {
+            if (col == 2)
+                return true;
+            else
+                return false;
+        }
+
+        /*@Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return String.class;
+        }*/
+
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            SpedizioneTabella spedizione = ordini_del_cliente.get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return spedizione.toDestinazione();
+                case 1:
+                    return spedizione.toCodice();
+                case 2:
+                    return spedizione.toStato();
+                case 3:
+                    return spedizione.toPeso();
+                case 4:
+                    return spedizione.toData();
+                case 5:
+                    return spedizione.toValoreAssicurato();
+            }
+            return "Unknown";
+        }
+    }
+
+}
+
+
