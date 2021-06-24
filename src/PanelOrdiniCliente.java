@@ -11,7 +11,7 @@ public class PanelOrdiniCliente extends JPanel {
     private final String nome = "";
     private JTable table;
     private int selectedrow;
-    private ListSelectionModel selezioneModel;
+    private final ListSelectionModel selezioneModel;
     private PopupModificaCliente popModificaCliente;
     private Vector<SpedizioneNormale> ordini_del_cliente;
 

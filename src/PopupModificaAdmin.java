@@ -45,6 +45,7 @@ class PopupModificaAdmin extends JPopupMenu implements ActionListener {
         elimina.addActionListener(e -> {
             JOptionPane.showMessageDialog(elimina, "eliminato");
             ordini_totali.removeAndSave(ordini_totali.get(selectedrow));
+
         });
 
         /*modifica.setEnabled(false);

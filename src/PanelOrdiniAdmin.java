@@ -52,17 +52,20 @@ public class PanelOrdiniAdmin extends JPanel {
 
         });
         //cliccando col tasto sinistro su una riga della tabella, manda
-        selezioneModel.addListSelectionListener(e -> {
-            if (!selezioneModel.isSelectionEmpty()) {
 
+
+        selezioneModel.addListSelectionListener(e -> {
+
+            if (!selezioneModel.isSelectionEmpty()&&!e.getValueIsAdjusting()) {
+
+
+                System.out.println("a");
                 selectedrow = selezioneModel.getMinSelectionIndex();//selectdrow=indice della riga
                 popModificaAdmin.setRow(selectedrow, ordini_totali);//popmodifica ottiene l'indice della riga
-              /*  System.out.println(table.getValueAt(selectedrow, 2));//PERCHE LO FA 2 VOLTE ??
-                System.out.println("meme");*/
                 // se la riga che evidenzio con tasto destro equivale a una di quelle condizioni, allora mostro solo il pulsante relativo a quelle condizioni
                 /*     popmodifica.setTasti(table.getValueAt(selectedrow, 2).equals("RIMBORSO EROGATO") || (table.getValueAt(selectedrow, 2).equals("RICEVUTA")));//fancy*/
                 /*  ordini_totali.save();*/
-                table.updateUI();
+
             }
         });
 
@@ -77,6 +80,11 @@ public class PanelOrdiniAdmin extends JPanel {
 
 
     public class TableOrdiniUser extends AbstractTableModel {
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return String.class;
+        }
 
         @Override
         public int getRowCount() {
