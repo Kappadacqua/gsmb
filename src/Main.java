@@ -7,7 +7,6 @@
  * <p>
  * Questa classe crea un nuovo {@link GestoreSpedizioniMatteoBaluganiFrame}
  */
-
 class Main {
 
 
