@@ -4,12 +4,12 @@ import java.awt.*;
 /**
  * Card è il {@link JFrame} principale che contiene tutti gli altri sotto-{@link JPanel}.
  */
-public class Card extends JFrame {
+public class GestoreSpedizioniMatteoBaluganiFrame extends JFrame {
     private PanelAccessoCliente panelaccessocliente; // primo panel
     private PanelOrdiniCliente panelordinicliente;
     private PanelCreazioneOrdineCliente panelcreazioneordinecliente;
 
-    public Card() {
+    public GestoreSpedizioniMatteoBaluganiFrame() {
         CardLayout cl = new CardLayout(5, 5); // margine
 
         JPanel home = new JPanel(cl);
