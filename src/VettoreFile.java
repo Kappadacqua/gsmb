@@ -30,7 +30,18 @@ public class VettoreFile<E> extends Vector<E> {
     }
 
 
-    public void serializzazione() {
+    public void addAndSave(E el) {
+        super.add(el);
+        save();
+
+    }
+
+    public void removeAndSave(E el) {
+        super.remove(el);
+        save();
+    }
+
+    public void save() {
         try {
 
             FileOutputStream file = new FileOutputStream(nomefile);

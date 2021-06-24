@@ -1,11 +1,8 @@
-import java.util.Vector;
-
-public class VettoreOrdini extends Vector<SpedizioneNormale> implements java.io.Serializable {
-
-    private static final String filename = "OrdiniClientiCriptati.txt";  //il file dove vengono salvati tutti gli ordini
+public class VettoreOrdini extends VettoreFile<Credenziali> {
 
 
-    public VettoreOrdini() {
+    public VettoreOrdini(String nomefile) {
+        super(nomefile);
 
 
     }
