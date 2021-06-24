@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
 
 public class PanelRegistrazioneCliente extends JPanel implements ActionListener {
 
@@ -46,27 +45,8 @@ public class PanelRegistrazioneCliente extends JPanel implements ActionListener 
 
     public void actionPerformed(ActionEvent e) {
         String tasto = e.getActionCommand();                  //tasto ottiene il nome del tasto
-        VettoreCredenziali vettore_credenziali = new VettoreCredenziali();                            //il vettore b viene usato per deserializzare i dati
+        VettoreCredenziali vettore_credenziali = new VettoreCredenziali(filename);                            //il vettore b viene usato per deserializzare i dati
         boolean flagcorretto = true;                         //se flagcorretto vale true, i nuovi dati sono accettati e vengono salvati nel file CredenzialiCriptate.txt, se vale false invece c'è un errore nei dati immessi
-
-        // Deserialization
-        try {
-            // Reading the object from a file
-            FileInputStream file = new FileInputStream(filename);
-            ObjectInputStream in = new ObjectInputStream(file);
-
-            // Method for deserialization of object
-            vettore_credenziali = (VettoreCredenziali) in.readObject();
-
-            in.close();
-            file.close();
-
-
-        } catch (IOException ex) {
-            System.out.println("IOException is caught");
-        } catch (ClassNotFoundException ex) {
-            System.out.println("ClassNotFoundException is caught");
-        }
 
 
         if (tasto.equals("conferma")) {             //se viene premuto il tasto conferma
@@ -82,24 +62,8 @@ public class PanelRegistrazioneCliente extends JPanel implements ActionListener 
                 flagcorretto = false;
             }
             if (flagcorretto) { //se non ci sono stati errori
-                vettore_credenziali.add(new Credenziali(username.getText(), password.getText(), indirizzo.getText()));  //aggiungi le nuove Credenziali al vettore b e serializzalo
+                vettore_credenziali.addAndSave(new Credenziali(username.getText(), password.getText(), indirizzo.getText()));  //aggiungi le nuove Credenziali al vettore b e serializzalo
 
-                try {
-
-                    FileOutputStream file = new FileOutputStream(filename);
-                    ObjectOutputStream out = new ObjectOutputStream(file);
-
-                    // Method for serialization of object
-                    out.writeObject(vettore_credenziali);
-
-                    out.close();
-                    file.close();
-
-                    System.out.println("Object has been serialized");
-
-                } catch (IOException ex) {
-                    System.out.println("IOException is caught");
-                }
 
                 esito.setText("creazione profilo creata");
 

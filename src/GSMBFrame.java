@@ -23,7 +23,6 @@ public class GSMBFrame extends JFrame {
         home.add(panelingresso, "Panel ingresso");
 
 
-
         PanelRegistrazioneCliente panelregistrazionecliente = new PanelRegistrazioneCliente(cl, home);
         home.add(panelregistrazionecliente, "Panel registrazione");
 

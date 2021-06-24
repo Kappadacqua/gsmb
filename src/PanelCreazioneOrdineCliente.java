@@ -6,7 +6,6 @@ import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,7 +46,7 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
         f = new JTextField(25);
 
 
-//peso non accetta caratteri al di fuori dei numeri
+//https://stackoverflow.com/questions/20541230/allow-only-numbers-in-jtextfield
         ((AbstractDocument) peso.getDocument()).setDocumentFilter(new DocumentFilter() {
             Pattern regEx = Pattern.compile("\\d*");
 
@@ -60,7 +59,7 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
                 super.replace(fb, offset, length, text, attrs);
             }
         });
-//rimborso non accetta caratteri al di fuori dei numeri
+//https://stackoverflow.com/questions/20541230/allow-only-numbers-in-jtextfield
         ((AbstractDocument) rimborso.getDocument()).setDocumentFilter(new DocumentFilter() {
             Pattern regEx = Pattern.compile("\\d*");
 
@@ -116,28 +115,8 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
         destinazione.setEditable(true);
         String scelta = e.getActionCommand();
         String codicegenerato = "";
-        VettoreOrdini<SpedizioneNormale> b = new VettoreOrdini<>();
+        VettoreOrdini b = new VettoreOrdini(filename);
 
-        try {
-            // Reading the object from a file
-            FileInputStream file = new FileInputStream(filename);
-            ObjectInputStream in = new ObjectInputStream(file);
-
-            // Method for deserialization of object
-
-            b = (VettoreOrdini<SpedizioneNormale>) in.readObject();
-
-            in.close();
-            file.close();
-
-
-        } catch (IOException ex) {
-            System.out.println("IOException is caught");
-        } catch (ClassNotFoundException ex) {
-            System.out.println("ClassNotFoundException is caught");
-
-
-        }
 
         {
             if (scelta.equals("spedizione normale")) {
@@ -171,27 +150,11 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
             //se flagcorretto vale true, i nuovi dati sono accettati e vengono salvati nel file CredenzialiCriptate.txt, se vale false invece c'è un errore nei dati immessi
             if (!flagspedizione)
 
-                b.aggiungi(new SpedizioneNormale(destinazione.getText(), codice.getText(), stato.getText(), Float.parseFloat(peso.getText())));
+                b.addAndSave(new SpedizioneNormale(destinazione.getText(), codice.getText(), stato.getText(), Float.parseFloat(peso.getText())));
 
             else
-                b.aggiungi(new SpedizioneAssicurata(destinazione.getText(), codice.getText(), stato.getText(), Float.parseFloat(peso.getText()), Float.parseFloat(rimborso.getText())));
+                b.addAndSave(new SpedizioneAssicurata(destinazione.getText(), codice.getText(), stato.getText(), Float.parseFloat(peso.getText()), Float.parseFloat(rimborso.getText())));
 
-            try {
-
-                FileOutputStream file = new FileOutputStream(filename);
-                ObjectOutputStream out = new ObjectOutputStream(file);
-
-                // Method for serialization of object
-                out.writeObject(b);
-
-                out.close();
-                file.close();
-
-                System.out.println("Object has been serialized");
-
-            } catch (IOException ex) {
-                System.out.println("IOException is caught");
-            }
 
             esito.setText("ordine creato");
 

@@ -5,9 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.util.Vector;
 
 public class PanelOrdiniCliente extends JPanel implements ActionListener {
     String filename = "OrdiniClientiCriptati.txt";  //il file dove vengono salvate tutte le credenziali
@@ -21,7 +19,7 @@ public class PanelOrdiniCliente extends JPanel implements ActionListener {
     private JButton aggiorna;
     private JTable table;
     private PopupModificaCliente popmodificacliente;
-    private VettoreOrdini<SpedizioneNormale> ordini_del_cliente = new VettoreOrdini<>();
+    private Vector<SpedizioneNormale> ordini_del_cliente;
 
     public PanelOrdiniCliente(CardLayout cl, JPanel home) {
         super();
@@ -35,14 +33,14 @@ public class PanelOrdiniCliente extends JPanel implements ActionListener {
         pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente.addActionListener(e -> cl.show(home, "Panel creazione ordine cliente"));
         pulsante_da_ordini_user_a_accesso_user.addActionListener(e -> {
             cl.show(home, "Panel accesso");
-            ordini_del_cliente = new VettoreOrdini<>();
+            ordini_del_cliente = new Vector<>();
      /*   for(int i=ordini_del_cliente.size();i>0;i--)
             {
                 ordini_del_cliente.rimuovi(ordini_del_cliente.get(i));
             }
 */
         });
-
+        ordini_del_cliente = new Vector<>();
         add(s);
         add(pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente);
 
@@ -81,32 +79,14 @@ public class PanelOrdiniCliente extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
 
-        VettoreOrdini<SpedizioneNormale> ordini_totali = new VettoreOrdini<>();
+        VettoreOrdini ordini_totali = new VettoreOrdini(filename);
 
         // Deserialization
-        try {
-            // Reading the object from a file
-            FileInputStream file = new FileInputStream(filename);
-            ObjectInputStream in = new ObjectInputStream(file);
 
-            // Method for deserialization of object
-
-
-            ordini_totali = (VettoreOrdini<SpedizioneNormale>) in.readObject();
-            in.close();
-            file.close();
-
-
-        } catch (IOException ex) {
-            System.out.println("IOException is caught");
-        } catch (ClassNotFoundException ex) {
-            System.out.println("ClassNotFoundException is caught");
-        }
-
-
-        for (int i = 0; i < ordini_totali.size(); i++) {
-            if (ordini_totali.get(i).codice.startsWith(textfield_username_nascosto.getText()))
-                ordini_del_cliente.aggiungi(ordini_totali.get(i));
+        ordini_del_cliente = new Vector<>();
+        for (SpedizioneNormale spedizioneNormale : ordini_totali) {
+            if (spedizioneNormale.codice.startsWith(textfield_username_nascosto.getText()))
+                ordini_del_cliente.add(spedizioneNormale);
         }
         table.updateUI();
     }

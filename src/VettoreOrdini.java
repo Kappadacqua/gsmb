@@ -1,4 +1,4 @@
-public class VettoreOrdini extends VettoreFile<Credenziali> {
+public class VettoreOrdini extends VettoreFile<SpedizioneNormale> {
 
 
     public VettoreOrdini(String nomefile) {

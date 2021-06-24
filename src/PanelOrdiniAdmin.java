@@ -1,15 +1,11 @@
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 
-public class PanelOrdiniAdmin extends JPanel implements ActionListener {
+
+public class PanelOrdiniAdmin extends JPanel {
     private final JTable table;
     private final PopupModificaAdmin popmodifica;
     private final ListSelectionModel selezioneModel;
@@ -21,50 +17,20 @@ public class PanelOrdiniAdmin extends JPanel implements ActionListener {
     //il jtextfield username nascosto manca perchè il nome è scritto nel codice
     public PanelOrdiniAdmin(CardLayout cl, JPanel home) {
         super();
-        ordini_totali = new VettoreOrdini();
+        ordini_totali = new VettoreOrdini(filename);
         JButton aggiorna2 = new JButton("aggiorna2");
         JButton aggiorna = new JButton("aggiorna");
         JButton pulsante_da_ordini_admin_a_accesso_admin = new JButton("logout");
         String nome = "Matteo Balugani";
         JLabel scritta_iniziale = new JLabel("Benvenuto Admin " + nome);
-        TabelOrdiniUser dataModel = new TabelOrdiniUser();
+        TableOrdiniUser dataModel = new TableOrdiniUser();
         table = new JTable(dataModel);
         popmodifica = new PopupModificaAdmin(table);
         selezioneModel = table.getSelectionModel();
 
-
-        {
-
-
-            // Deserialization
-            try {
-                // Reading the object from a file
-                FileInputStream file = new FileInputStream(filename);
-                ObjectInputStream in = new ObjectInputStream(file);
-
-                // Method for deserialization of object
-
-
-                ordini_totali = (VettoreOrdini) in.readObject();
-                in.close();
-                file.close();
-
-
-            } catch (IOException ex) {
-                System.out.println("IOException is caught");
-            } catch (ClassNotFoundException ex) {
-                System.out.println("ClassNotFoundException is caught");
-            }
-
-
-            table.updateUI();
-
-        }
-
-
         pulsante_da_ordini_admin_a_accesso_admin.addActionListener(e -> {
             cl.show(home, "Panel accesso");
-            ordini_totali = new VettoreOrdini();
+
      /*   for(int i=ordini_del_cliente.size();i>0;i--)                      //bisogna trovare un metodo migliore per svuotare il vettore ordini_del_cliente
             {
                 ordini_del_cliente.rimuovi(ordini_del_cliente.get(i));
@@ -76,12 +42,12 @@ public class PanelOrdiniAdmin extends JPanel implements ActionListener {
 
 
             table.updateUI();
-            for (int i = 0; i < ordini_totali.size(); i++) {
-                System.out.println(ordini_totali.get(i).toStato()); //se cèè un solo elemento nel vettore va in errore, ma non dovrebbe essere davvero un problema
+            for (SpedizioneNormale spedizioneNormale : ordini_totali) {
+                System.out.println(spedizioneNormale.toStato()); //se cèè un solo elemento nel vettore va in errore, ma non dovrebbe essere davvero un problema
             }
 
         });
-        aggiorna.addActionListener(this);
+        aggiorna.addActionListener(e -> table.updateUI());
 
         //serve per stabilire dove compare il JPopupMenu
         table.addMouseListener(new MouseAdapter() {
@@ -107,6 +73,7 @@ public class PanelOrdiniAdmin extends JPanel implements ActionListener {
                 System.out.println("meme");
                 // se la riga che evidenzio con tasto destro equivale a una di quelle condizioni, allora mostro solo il pulsante relativo a quelle condizioni
                 popmodifica.setTasti(table.getValueAt(selectedrow, 2).equals("RIMBORSO EROGATO") || (table.getValueAt(selectedrow, 2).equals("RICEVUTA")));//fancy
+                ordini_totali.save();
             }
         });
 
@@ -120,35 +87,7 @@ public class PanelOrdiniAdmin extends JPanel implements ActionListener {
     }
 
 
-    public void actionPerformed(ActionEvent e) {
-
-
-        // Deserialization
-        try {
-            // Reading the object from a file
-            FileInputStream file = new FileInputStream(filename);
-            ObjectInputStream in = new ObjectInputStream(file);
-
-            // Method for deserialization of object
-
-
-            ordini_totali = (VettoreOrdini) in.readObject();
-            in.close();
-            file.close();
-
-
-        } catch (IOException ex) {
-            System.out.println("IOException is caught");
-        } catch (ClassNotFoundException ex) {
-            System.out.println("ClassNotFoundException is caught");
-        }
-
-
-        table.updateUI();
-    }
-
-
-    public class TabelOrdiniUser extends AbstractTableModel {
+    public class TableOrdiniUser extends AbstractTableModel {
 
 
 
