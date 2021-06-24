@@ -69,8 +69,8 @@ public class PanelOrdiniAdmin extends JPanel {
 
                 selectedrow = selezioneModel.getMinSelectionIndex();//selectdrow=indice della riga
                 popmodifica.setRow(selectedrow);//popmodifica ottiene l'indice della riga
-                System.out.println(table.getValueAt(selectedrow, 2));//PERCHE LO FA 2 VOLTE ??
-                System.out.println("meme");
+              /*  System.out.println(table.getValueAt(selectedrow, 2));//PERCHE LO FA 2 VOLTE ??
+                System.out.println("meme");*/
                 // se la riga che evidenzio con tasto destro equivale a una di quelle condizioni, allora mostro solo il pulsante relativo a quelle condizioni
                 popmodifica.setTasti(table.getValueAt(selectedrow, 2).equals("RIMBORSO EROGATO") || (table.getValueAt(selectedrow, 2).equals("RICEVUTA")));//fancy
                 ordini_totali.save();
