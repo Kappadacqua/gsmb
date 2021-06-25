@@ -22,7 +22,7 @@ public class PanelOrdiniAdmin extends JPanel {
         JButton aggiorna2 = new JButton("aggiorna2");
         JButton aggiorna = new JButton("aggiorna");
         JButton pulsante_da_ordini_admin_a_accesso_admin = new JButton("logout");
-        String nome = "Matteo Balugani";
+        String nome = VettoreCredenziali.CREDENZIALI_ADMIN.toUsername();
         JLabel scritta_iniziale = new JLabel("Benvenuto Admin " + nome);
         TableOrdiniUser dataModel = new TableOrdiniUser();
         table = new JTable(dataModel);
