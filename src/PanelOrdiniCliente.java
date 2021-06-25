@@ -11,19 +11,21 @@ import java.util.Vector;
 public class PanelOrdiniCliente extends JPanel {
     String filename = "OrdiniClientiCriptati.txt";  //il file dove vengono salvate tutte le credenziali
     private JLabel scritta_benvenuto; //scritta iniziale
-
-    private String nome = "";
+    private String nome;
     private JTable table;
     private int selectedrow;
     private final ListSelectionModel selezioneModel;
     private PopupModificaCliente popModificaCliente;
     private Vector<SpedizioneNormale> ordini_del_cliente;
+    private VettoreOrdini ordini_totali;
 
     public PanelOrdiniCliente(GSMBFrame frame_principale) {
         super();
+        nome = "";
+        VettoreOrdini ordini_totali = new VettoreOrdini(filename);
         scritta_benvenuto = new JLabel("");
         JButton aggiorna = new JButton("aggiorna");
-        JButton pulsante_da_ordini_user_a_accesso_user = new JButton("logout");
+        JButton pulsante_da_ordini_user_a_accesso = new JButton("logout");
         JButton pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente = new JButton("crea un nuovo ordine");
 
 
@@ -31,10 +33,10 @@ public class PanelOrdiniCliente extends JPanel {
         TabelOrdiniUser dataModel = new TabelOrdiniUser(); //non penso funzioni
         table = new JTable(dataModel);
         selezioneModel = table.getSelectionModel();
-
+        popModificaCliente = new PopupModificaCliente(table);
 
         pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente.addActionListener(e -> frame_principale.toCard("Panel creazione ordine cliente"));
-        pulsante_da_ordini_user_a_accesso_user.addActionListener(e -> {
+        pulsante_da_ordini_user_a_accesso.addActionListener(e -> {
             frame_principale.toCard("Panel accesso");
             ordini_del_cliente = new Vector<>();
      /*   for(int i=ordini_del_cliente.size();i>0;i--)
@@ -46,9 +48,6 @@ public class PanelOrdiniCliente extends JPanel {
 
         aggiorna.addActionListener(e -> {
 
-            VettoreOrdini ordini_totali = new VettoreOrdini(filename);
-
-
             ordini_del_cliente = new Vector<>();
             for (SpedizioneNormale spedizioneNormale : ordini_totali) {
                 if (spedizioneNormale.codice.startsWith(nome))
@@ -57,17 +56,13 @@ public class PanelOrdiniCliente extends JPanel {
             table.updateUI();
         });
 
-        add(scritta_benvenuto);
-        add(pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente);
-        add(pulsante_da_ordini_user_a_accesso_user);
-        add(table);
-        add(aggiorna);
 
+        //serve per stabilire dove compare il JPopupMenu
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
                 {
-                    //determine id right clicked
+                    //determina se cliccato col mouse destro
                     if (SwingUtilities.isRightMouseButton(me)) {
                         popModificaCliente.show(me.getComponent(), me.getX(), me.getY());
                     }
@@ -76,20 +71,22 @@ public class PanelOrdiniCliente extends JPanel {
 
         });
 
-
+//determina se clicco su una riga della tabella
         selezioneModel.addListSelectionListener(e -> {
             if (!selezioneModel.isSelectionEmpty() && !e.getValueIsAdjusting()) {
 
                 selectedrow = selezioneModel.getMinSelectionIndex();//selectdrow=indice della riga
-                popModificaCliente.setRow(selectedrow, (VettoreOrdini) ordini_del_cliente);//popmodifica ottiene l'indice della riga
-              /*  System.out.println(table.getValueAt(selectedrow, 2));//PERCHE LO FA 2 VOLTE ??
-                System.out.println("meme");*/
-                // se la riga che evidenzio con tasto destro equivale a una di quelle condizioni, allora mostro solo il pulsante relativo a quelle condizioni
-                /*     popmodifica.setTasti(table.getValueAt(selectedrow, 2).equals("RIMBORSO EROGATO") || (table.getValueAt(selectedrow, 2).equals("RICEVUTA")));//fancy*/
-                /*  ordini_totali.save();*/
-
+                popModificaCliente.setRow(selectedrow, ordini_totali);//popmodifica ottiene l'indice della riga*/
+                popModificaCliente.setTasti(table.getValueAt(selectedrow, 2).equals("FALLITA") && !(table.getValueAt(selectedrow, 5).equals("")));
             }
         });
+
+
+        add(scritta_benvenuto);
+        add(pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente);
+        add(pulsante_da_ordini_user_a_accesso);
+        add(table);
+        add(aggiorna);
 
 
     }

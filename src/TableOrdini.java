@@ -4,6 +4,8 @@ public class TableOrdini extends AbstractTableModel {
 
     private VettoreOrdini ordini;
 
+    //vedo solo quello che ho caricato all'inizio
+
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         return String.class;

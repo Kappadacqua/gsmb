@@ -42,8 +42,7 @@ public class PanelAccesso extends JPanel {
 
                             }
                         }, 1000);
-            }
-            else if (nome_utente.equals(VettoreCredenziali.CREDENZIALI_ADMIN.toUsername())) {
+            } else if (nome_utente.equals(VettoreCredenziali.CREDENZIALI_ADMIN.toUsername())) {
                 label_esito.setText("login admin avvenuto con successo");
                 new java.util.Timer().schedule(
                         new java.util.TimerTask() {

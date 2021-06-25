@@ -9,6 +9,10 @@ import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+/**
+ *
+ */
 public class PanelCreazioneOrdineCliente extends JPanel implements ActionListener {
 
     String filename = "OrdiniClientiCriptati.txt";  //il file dove vengono salvate tutte le credenziali
@@ -19,7 +23,7 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
     private final JTextField rimborso;
     private final JTextField codice;
     private final JTextField stato;
-    private final JTextField f;//prova
+    private String nome;
     private boolean flagspedizione = false;//FALSE=SPEDIZIONE NORMALE /TRUE =SPEDIZIONE ASSICURATA
     private final JLabel esito;
     private final GSMBFrame frame_principale;
@@ -27,7 +31,7 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
     public PanelCreazioneOrdineCliente(GSMBFrame frame_principale) {
         super();
         this.frame_principale = frame_principale;
-
+        nome = "";
         esito = new JLabel("");
         JRadioButton b1 = new JRadioButton("spedizione normale");
         JRadioButton b2 = new JRadioButton("spedizione assicurata");
@@ -37,7 +41,6 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
         codice = new JTextField("premi genera per generare il codice", 10);
         stato = new JTextField("IN PREPARAZIONE");
         salva = new JButton("crea");
-        f = new JTextField(25);
 
 
 //https://stackoverflow.com/questions/20541230/allow-only-numbers-in-jtextfield
@@ -90,6 +93,7 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
             peso.setText("");
             codice.setText("");
             rimborso.setText("");
+            salva.setEnabled(false);
         });
         add(pulsante_da_panel_creazione_ordine_cliente_a_panel_ordini_cliente);
         ButtonGroup grp = new ButtonGroup();
@@ -115,7 +119,7 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
         peso.setEditable(true);
         destinazione.setEditable(true);
         String scelta = e.getActionCommand();
-        String codicegenerato = "";
+        String codicegenerato;
         VettoreOrdini b = new VettoreOrdini(filename);
 
 
@@ -135,7 +139,11 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
             stato.setBackground(Color.white);
             peso.setBackground(Color.white);
             destinazione.setBackground(Color.white);
-            codicegenerato = f.getText() + b.size();
+
+
+            codicegenerato = nome + b.size();
+
+            /* codicegenerato = nome + b.get(b.size()-1).toCodice().substring();*/ //il codice generato deve essere unico
             codice.setText(codicegenerato);
 
 
@@ -170,16 +178,17 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
                             peso.setText("");
                             codice.setText("");
                             rimborso.setText("");
-
+                            salva.setEnabled(false);
 
                         }
                     }, 1000);
         }
+
     }
 
 
     public void setUsername(String username) {
-        f.setText(username);
+        nome = username;
 
     }
 

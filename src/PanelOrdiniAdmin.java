@@ -11,40 +11,45 @@ public class PanelOrdiniAdmin extends JPanel {
     private final JTable table;
     String filename = "OrdiniClientiCriptati.txt";  //il file dove vengono salvati tutti gli ordini
     private final ListSelectionModel selezioneModel;
-
     private int selectedrow;
-    private final VettoreOrdini ordini_totali;
+    private VettoreOrdini ordini_totali;
+    private TableOrdiniUser dataModel;
 
     //il jtextfield username nascosto manca perchè il nome è scritto nel codice
     public PanelOrdiniAdmin(GSMBFrame frame_principale) {
         super();
+
         ordini_totali = new VettoreOrdini(filename);
-        JButton aggiorna2 = new JButton("aggiorna2");
         JButton aggiorna = new JButton("aggiorna");
-        JButton pulsante_da_ordini_admin_a_accesso_admin = new JButton("logout");
+        JButton pulsante_da_ordini_admin_a_accesso = new JButton("logout");
         String nome = VettoreCredenziali.CREDENZIALI_ADMIN.toUsername();
-        JLabel scritta_iniziale = new JLabel("Benvenuto Admin " + nome);
-        TableOrdiniUser dataModel = new TableOrdiniUser();
+        JLabel scritta_benvenuto = new JLabel("Benvenuto Admin " + nome);
+        dataModel = new TableOrdiniUser();
         table = new JTable(dataModel);
+        JScrollPane scrollpane = new JScrollPane();//non gli piace sa mando dentro table
+        table.add(scrollpane);
+       /* table.setBounds(0,0,500,500);
+        table.setSize(450, 100);*/
         popModificaAdmin = new PopupModificaAdmin(table);
         selezioneModel = table.getSelectionModel();
 
-        pulsante_da_ordini_admin_a_accesso_admin.addActionListener(e -> frame_principale.toCard("Panel accesso"));
-        aggiorna2.addActionListener(e -> {
-            table.updateUI();
+        pulsante_da_ordini_admin_a_accesso.addActionListener(e -> frame_principale.toCard("Panel accesso"));
+        aggiorna.addActionListener(e -> {
+
+            ordini_totali = new VettoreOrdini("OrdiniClientiCriptati.txt");
             for (SpedizioneNormale spedizioneNormale : ordini_totali) {
-                System.out.println(spedizioneNormale.toStato()); //se cèè un solo elemento nel vettore va in errore, ma non dovrebbe essere davvero un problema
+                System.out.println(spedizioneNormale.toStato()); //se cè un solo elemento nel vettore va in errore, ma non dovrebbe essere davvero un problema
             }
 
         });
-        aggiorna.addActionListener(e -> table.updateUI());
+
 
         //serve per stabilire dove compare il JPopupMenu
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
                 {
-                    //determine id right clicked
+                    //determina se cliccato col mouse destro
                     if (SwingUtilities.isRightMouseButton(me)) {
                         popModificaAdmin.show(me.getComponent(), me.getX(), me.getY());
 
@@ -53,30 +58,27 @@ public class PanelOrdiniAdmin extends JPanel {
             }
 
         });
-        //cliccando col tasto sinistro su una riga della tabella, manda
 
 
+        //determina se clicco su una riga della tabella
         selezioneModel.addListSelectionListener(e -> {
 
-            if (!selezioneModel.isSelectionEmpty()&&!e.getValueIsAdjusting()) {
+            if (!selezioneModel.isSelectionEmpty() && !e.getValueIsAdjusting()) {
 
-
-                System.out.println("a");
                 selectedrow = selezioneModel.getMinSelectionIndex();//selectdrow=indice della riga
                 popModificaAdmin.setRow(selectedrow, ordini_totali);//popmodifica ottiene l'indice della riga
+                popModificaAdmin.setTasti(table.getValueAt(selectedrow, 2).equals("RIMBORSO EROGATO") || (table.getValueAt(selectedrow, 2).equals("RICEVUTA")));
                 // se la riga che evidenzio con tasto destro equivale a una di quelle condizioni, allora mostro solo il pulsante relativo a quelle condizioni
-                /*     popmodifica.setTasti(table.getValueAt(selectedrow, 2).equals("RIMBORSO EROGATO") || (table.getValueAt(selectedrow, 2).equals("RICEVUTA")));//fancy*/
-                /*  ordini_totali.save();*/
+
 
             }
         });
 
 
-        add(scritta_iniziale);
-        add(pulsante_da_ordini_admin_a_accesso_admin);
+        add(scritta_benvenuto);
+        add(pulsante_da_ordini_admin_a_accesso);
         add(table);
         add(aggiorna);
-        add(aggiorna2);
 
     }
 

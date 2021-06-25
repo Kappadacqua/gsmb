@@ -13,10 +13,10 @@ class PopupModificaAdmin extends JPopupMenu implements ActionListener {
     private final JMenuItem elimina;
     private VettoreOrdini ordini_totali;
 
+
     public PopupModificaAdmin(JTable table) {
         //create poput items
         this.table = table;
-        this.ordini_totali = ordini_totali;
         elimina = new JMenuItem("elimina");
         modifica = new JMenu("modifica");
 
@@ -33,6 +33,16 @@ class PopupModificaAdmin extends JPopupMenu implements ActionListener {
         menuItem4.addActionListener(this);
         menuItem5.addActionListener(this);
         menuItem6.addActionListener(this);
+
+        if (table.getValueAt(selectedrow, 5).equals("")) {
+            menuItem5.setEnabled(false);
+            menuItem6.setEnabled(false);
+
+        } else {
+            menuItem5.setEnabled(true);
+            menuItem6.setEnabled(true);
+
+        }
 
         modifica.add(menuItem1);
         modifica.add(new JSeparator());
@@ -53,25 +63,9 @@ class PopupModificaAdmin extends JPopupMenu implements ActionListener {
 
         });
 
-        /*modifica.setEnabled(false);
-        elimina.setEnabled(false);
-*/
         add(modifica);
         add(new JSeparator());//è una semplice riga che separa i tasti edit e delete
         add(elimina);
-
-
-/*        if (table.getValueAt(selectedrow, 2).equals("RICEVUTA") || table.getValueAt(selectedrow, 2).equals("RIMBORSO EROGATO")) {
-
-            modifica.setEnabled(false);
-            elimina.setEnabled(true);
-        }
-        else
-        {
-
-            modifica.setEnabled(true);
-            elimina.setEnabled(false);
-        }*/
     }
 
 
@@ -108,5 +102,6 @@ class PopupModificaAdmin extends JPopupMenu implements ActionListener {
             modifica.setEnabled(true);
             elimina.setEnabled(false);
         }
+
     }
 }
