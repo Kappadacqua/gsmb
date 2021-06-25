@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 
 /**
- * Panel accesso è la classe che gestisce  il login, sia per l'user che per l'admin
+ * PanelAccesso è la classe che gestisce  il login, sia per l'user che per l'admin.
  * <p>
  */
 public class PanelAccesso extends JPanel {

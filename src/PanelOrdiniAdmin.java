@@ -4,7 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- *
+ * PanelOrdiniAdmin è la classe che mostra e che permette di modificare all'admin la tabella contenente le spedizioni di tutti gli utenti.
  */
 public class PanelOrdiniAdmin extends JPanel {
     private final PopupModificaAdmin popModificaAdmin;

@@ -2,7 +2,7 @@
 
 
 /**
- * SpedizioneTabella è l'interfaccia che implementa i metodi che vengono usati nelle classi {@link SpedizioneNormale} e {@link SpedizioneAssicurata}
+ * SpedizioneTabella è l'interfaccia che implementa i metodi che vengono usati nelle classi {@link SpedizioneNormale} e {@link SpedizioneAssicurata}.
  */
 public interface SpedizioneTabella {
 

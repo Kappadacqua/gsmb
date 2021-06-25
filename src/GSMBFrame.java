@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Card è il {@link JFrame} principale che contiene tutti gli altri sotto-{@link JPanel}.
+ * GSMBFrame (acronimo per Gestore Spedizioni Matteo Balugani) è il {@link JFrame} principale che contiene tutti gli altri sotto-{@link JPanel}.
  */
 public class GSMBFrame extends JFrame {
     private final CardLayout cl;  // TODO: Cambiare a private e scrivere un getter

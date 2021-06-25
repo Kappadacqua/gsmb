@@ -3,7 +3,7 @@
 /**
  * Vettore credenziali è la classe che viene usata per creare il vettore dove vengono salvate le {@link Credenziali}.
  * <p>
- * Essa è figlia di {@link VettoreFile}
+ * Essa è figlia di {@link VettoreFile}.
  */
 public class VettoreCredenziali extends VettoreFile<Credenziali> {
 

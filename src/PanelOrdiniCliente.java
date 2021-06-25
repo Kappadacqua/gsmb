@@ -6,7 +6,7 @@ import java.util.Vector;
 
 
 /**
- *
+ * PanelOrdiniCliente è la classe che mostra e che permette di modificare al cliente la tabella contenente le spedizioni da lui effettuate.
  */
 public class PanelOrdiniCliente extends JPanel {
     String filename = "OrdiniClientiCriptati.txt";  //il file dove vengono salvate tutte le credenziali

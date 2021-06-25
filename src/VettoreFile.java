@@ -5,7 +5,7 @@ import java.util.Vector;
 /**
  * VettoreFile è la classe che viene usata per creare i vettori nel programma.
  * <p>
- * Essa è figlia di {@link Vector} e padre di {@link VettoreCredenziali} e {@link VettoreOrdini}
+ * Essa è figlia di {@link Vector} e padre di {@link VettoreCredenziali} e {@link VettoreOrdini}.
  */
 public class VettoreFile<E> extends Vector<E> {
     private final String nomefile;
