@@ -2,8 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Panel registrazione cliente è il panel dove il cliente può creare un nuovo profilo per il programma
+ * PanelRegistrazioneCliente è il panel dove il cliente può creare un nuovo profilo per il programma.
  * <p>
+ * Le sue credenziali {@link Credenziali} verranno salvate nel file CredenzialiCriptate.txt
  */
 public class PanelRegistrazioneCliente extends JPanel {
 

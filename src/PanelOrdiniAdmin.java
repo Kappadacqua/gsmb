@@ -23,6 +23,8 @@ public class PanelOrdiniAdmin extends JPanel {
         JButton pulsante_da_ordini_admin_a_accesso = new JButton("logout");
         String nome = VettoreCredenziali.CREDENZIALI_ADMIN.toUsername();
         JLabel scritta_benvenuto = new JLabel("Benvenuto Admin " + nome);
+
+
         TableOrdiniUser dataModel = new TableOrdiniUser();
         table = new JTable(dataModel);
         JScrollPane scrollpane = new JScrollPane();//non gli piace sa mando dentro table

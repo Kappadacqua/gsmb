@@ -1,5 +1,11 @@
 import javax.swing.table.AbstractTableModel;
 
+
+/**
+ * TableOrdini è la classe che implementa il modello della tabella usata per visualizzare le spedizioni normali e assicurate.
+ * <p>
+ * Questa classe viene usata nella classe {@link PanelOrdiniAdmin} e nella classe {@link PanelOrdiniCliente}
+ */
 public class TableOrdini extends AbstractTableModel {
 
     private VettoreOrdini ordini;

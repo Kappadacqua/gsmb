@@ -3,8 +3,7 @@ import java.awt.*;
 
 
 /**
- * PanelIngresso è la classe che funge da ingresso al programma
- * <p>
+ * PanelIngresso è la classe che funge da ingresso all'avvio del programma.
  */
 public class PanelIngresso extends JPanel {
 

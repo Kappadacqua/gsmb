@@ -2,7 +2,9 @@ import java.io.Serializable;
 
 
 /**
- *
+ * SpedizioneNormale è la classe che contiene tutte le spedizioni assicurate create dagli utenti.
+ * <p>
+ * Questa classe è {@link java.io.Serializable}, implementa l'interfaccia {@link SpedizioneTabella} ed inoltre è figlia della classe {@link SpedizioneNormale}.
  */
 public class SpedizioneAssicurata extends SpedizioneNormale implements Serializable, SpedizioneTabella {
 

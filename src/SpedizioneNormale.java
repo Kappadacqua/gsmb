@@ -3,7 +3,11 @@ import java.util.Date;
 
 
 /**
- *
+ * SpedizioneNormale è la classe che contiene tutte le spedizioni normali create dagli utenti.
+ * <p>
+ * Questa classe è {@link java.io.Serializable} e viene usata nella classe {@link VettoreOrdini}.
+ * <p>
+ * Essa implementa l'interfaccia {@link SpedizioneTabella} ed inoltre è padre della classe {@link SpedizioneAssicurata}.
  */
 public class SpedizioneNormale implements Serializable, SpedizioneTabella {
     protected String codice, destinazione, stato;

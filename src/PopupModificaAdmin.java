@@ -4,7 +4,9 @@ import java.awt.event.ActionListener;
 
 
 /**
- *
+ * PopupModificaAdmin è la classe che fa apparire il menupopup dopo aver premuto il tasto destro sulla riga della tabella contenuta in {@link PanelOrdiniAdmin}.
+ * <p>
+ * Essa è figlia di {@link JPopupMenu}.
  */
 class PopupModificaAdmin extends JPopupMenu implements ActionListener {
     private int selectedrow;

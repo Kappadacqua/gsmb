@@ -11,7 +11,9 @@ import java.util.regex.Pattern;
 
 
 /**
- *
+ * PanelCreazioneOrdineCliente è il panel dove il cliente può creare un nuovo ordine.
+ * <p>
+ * L'ordine creato può essere di tipo {@link SpedizioneNormale} o di tipo {@link SpedizioneAssicurata} e verrà salvato nel file OrdiniClientiCriptati.txt
  */
 public class PanelCreazioneOrdineCliente extends JPanel implements ActionListener {
 
