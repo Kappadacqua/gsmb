@@ -1,6 +1,10 @@
 import java.io.Serializable;
 import java.util.Date;
 
+
+/**
+ *
+ */
 public class SpedizioneNormale implements Serializable, SpedizioneTabella {
     protected String codice, destinazione, stato;
     protected float peso;

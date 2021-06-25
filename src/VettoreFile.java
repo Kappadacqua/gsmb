@@ -1,6 +1,10 @@
 import java.io.*;
 import java.util.Vector;
 
+
+/**
+ *
+ */
 public class VettoreFile<E> extends Vector<E> {
     private final String nomefile;
 

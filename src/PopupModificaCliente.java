@@ -1,10 +1,15 @@
 import javax.swing.*;
 
+
+/**
+ *
+ */
 class PopupModificaCliente extends JPopupMenu {
     private int selectedrow;
     private JTable table;
 
     private VettoreOrdini ordini_del_cliente;
+
     public PopupModificaCliente(JTable table) {
         //create poput items
         this.table = table;

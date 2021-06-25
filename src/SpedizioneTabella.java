@@ -1,3 +1,9 @@
+
+
+
+/**
+ *
+ */
 public interface SpedizioneTabella {
 
     String toCodice();

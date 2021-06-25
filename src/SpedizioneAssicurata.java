@@ -1,5 +1,9 @@
 import java.io.Serializable;
 
+
+/**
+ *
+ */
 public class SpedizioneAssicurata extends SpedizioneNormale implements Serializable, SpedizioneTabella {
 
     protected Float valoreassicurato;

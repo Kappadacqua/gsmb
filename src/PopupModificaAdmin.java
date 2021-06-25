@@ -2,12 +2,17 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+/**
+ *
+ */
 class PopupModificaAdmin extends JPopupMenu implements ActionListener {
     private int selectedrow;
     private final JTable table;
     private final JMenu modifica;
     private final JMenuItem elimina;
     private VettoreOrdini ordini_totali;
+
     public PopupModificaAdmin(JTable table) {
         //create poput items
         this.table = table;

@@ -4,11 +4,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
+
+/**
+ *
+ */
 public class PanelOrdiniCliente extends JPanel {
     String filename = "OrdiniClientiCriptati.txt";  //il file dove vengono salvate tutte le credenziali
-    private final JLabel s; //scritta iniziale
-    private final JTextField textfield_username_nascosto;//prova
-    private final String nome = "";
+    private JLabel scritta_benvenuto; //scritta iniziale
+
+    private String nome = "";
     private JTable table;
     private int selectedrow;
     private final ListSelectionModel selezioneModel;
@@ -17,12 +21,17 @@ public class PanelOrdiniCliente extends JPanel {
 
     public PanelOrdiniCliente(GSMBFrame frame_principale) {
         super();
-
+        scritta_benvenuto = new JLabel("");
         JButton aggiorna = new JButton("aggiorna");
         JButton pulsante_da_ordini_user_a_accesso_user = new JButton("logout");
-        textfield_username_nascosto = new JTextField(25);
         JButton pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente = new JButton("crea un nuovo ordine");
-        s = new JLabel("Benvenuto " + textfield_username_nascosto.getText());
+
+
+        ordini_del_cliente = new Vector<>();
+        TabelOrdiniUser dataModel = new TabelOrdiniUser(); //non penso funzioni
+        table = new JTable(dataModel);
+        selezioneModel = table.getSelectionModel();
+
 
         pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente.addActionListener(e -> frame_principale.toCard("Panel creazione ordine cliente"));
         pulsante_da_ordini_user_a_accesso_user.addActionListener(e -> {
@@ -34,34 +43,25 @@ public class PanelOrdiniCliente extends JPanel {
             }
 */
         });
-        ordini_del_cliente = new Vector<>();
-        add(s);
-        add(pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente);
 
-        add(pulsante_da_ordini_user_a_accesso_user);
         aggiorna.addActionListener(e -> {
 
             VettoreOrdini ordini_totali = new VettoreOrdini(filename);
 
-            // Deserialization
 
             ordini_del_cliente = new Vector<>();
             for (SpedizioneNormale spedizioneNormale : ordini_totali) {
-                if (spedizioneNormale.codice.startsWith(textfield_username_nascosto.getText()))
+                if (spedizioneNormale.codice.startsWith(nome))
                     ordini_del_cliente.add(spedizioneNormale);
             }
             table.updateUI();
         });
-        TabelOrdiniUser dataModel = new TabelOrdiniUser(); //non penso funzioni
 
-
-        table = new JTable(dataModel);
-        selezioneModel = table.getSelectionModel();
+        add(scritta_benvenuto);
+        add(pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente);
+        add(pulsante_da_ordini_user_a_accesso_user);
         add(table);
         add(aggiorna);
-        dataModel.addTableModelListener(e -> System.out.println(e.getColumn()));
-
-
 
         table.addMouseListener(new MouseAdapter() {
             @Override
@@ -78,7 +78,7 @@ public class PanelOrdiniCliente extends JPanel {
 
 
         selezioneModel.addListSelectionListener(e -> {
-            if (!selezioneModel.isSelectionEmpty()) {
+            if (!selezioneModel.isSelectionEmpty() && !e.getValueIsAdjusting()) {
 
                 selectedrow = selezioneModel.getMinSelectionIndex();//selectdrow=indice della riga
                 popModificaCliente.setRow(selectedrow, (VettoreOrdini) ordini_del_cliente);//popmodifica ottiene l'indice della riga
@@ -87,7 +87,7 @@ public class PanelOrdiniCliente extends JPanel {
                 // se la riga che evidenzio con tasto destro equivale a una di quelle condizioni, allora mostro solo il pulsante relativo a quelle condizioni
                 /*     popmodifica.setTasti(table.getValueAt(selectedrow, 2).equals("RIMBORSO EROGATO") || (table.getValueAt(selectedrow, 2).equals("RICEVUTA")));//fancy*/
                 /*  ordini_totali.save();*/
-                table.updateUI();
+
             }
         });
 
@@ -96,12 +96,18 @@ public class PanelOrdiniCliente extends JPanel {
 
 
     public void setUsername(String username) {
-        textfield_username_nascosto.setText(username);
-        s.setText("Benvenuto " + textfield_username_nascosto.getText());
+        nome = username;
+        scritta_benvenuto.setText("benvenuto" + " " + nome);
     }
 
 
     public class TabelOrdiniUser extends AbstractTableModel {
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            return String.class;
+        }
+
         @Override
         public int getRowCount() {
             return ordini_del_cliente.size();

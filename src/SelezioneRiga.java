@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 
+
 public class SelezioneRiga implements ListSelectionModel {
     @Override
     public void setSelectionInterval(int index0, int index1) {

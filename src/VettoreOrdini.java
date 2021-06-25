@@ -1,3 +1,6 @@
+/**
+ *
+ */
 public class VettoreOrdini extends VettoreFile<SpedizioneNormale> {
 
 
@@ -7,4 +10,3 @@ public class VettoreOrdini extends VettoreFile<SpedizioneNormale> {
 
 
 }
-

@@ -1,3 +1,8 @@
+
+
+/**
+ *
+ */
 public class VettoreCredenziali extends VettoreFile<Credenziali> {
 
 
@@ -7,4 +12,6 @@ public class VettoreCredenziali extends VettoreFile<Credenziali> {
     public VettoreCredenziali(String nomefile) {
         super(nomefile);
     }
+
+
 }
