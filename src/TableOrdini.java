@@ -10,7 +10,10 @@ public class TableOrdini extends AbstractTableModel {
 
     private VettoreOrdini ordini;
 
-    //vedo solo quello che ho caricato all'inizio
+    public TableOrdini(VettoreOrdini ordini) {
+        this.ordini = ordini;
+    }
+
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {

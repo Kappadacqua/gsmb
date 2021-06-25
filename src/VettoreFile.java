@@ -28,7 +28,7 @@ public class VettoreFile<E> extends Vector<E> {
 
 
         } catch (IOException ex) {
-            System.out.println("IOException is caught");
+            System.out.println("IOException is caught" + ex.toString());
         } catch (ClassNotFoundException ex) {
             System.out.println("ClassNotFoundException is caught");
         }
@@ -64,5 +64,7 @@ public class VettoreFile<E> extends Vector<E> {
         } catch (IOException ex) {
             System.out.println("IOException is caught");
         }
+
+
     }
 }

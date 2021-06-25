@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -19,17 +18,11 @@ public class PanelOrdiniAdmin extends JPanel {
         super();
 
         ordini_totali = new VettoreOrdini(filename);
-        if (ordini_totali.size() == 0) {
-
-        }
         JButton aggiorna = new JButton("aggiorna");
         JButton pulsante_da_ordini_admin_a_accesso = new JButton("logout");
         String nome = VettoreCredenziali.CREDENZIALI_ADMIN.toUsername();
         JLabel scritta_benvenuto = new JLabel("Benvenuto Admin " + nome);
-
-
-        TableOrdiniUser dataModel = new TableOrdiniUser();
-        table = new JTable(dataModel);
+        table = new JTable(ordini_totali.getTableOrdini());
         JScrollPane scrollpane = new JScrollPane();//non gli piace sa mando dentro table
         table.add(scrollpane);
        /* table.setBounds(0,0,500,500);
@@ -38,6 +31,8 @@ public class PanelOrdiniAdmin extends JPanel {
         selezioneModel = table.getSelectionModel();
 
         pulsante_da_ordini_admin_a_accesso.addActionListener(e -> frame_principale.toCard("Panel accesso"));
+
+
         aggiorna.addActionListener(e -> {
 
             ordini_totali = new VettoreOrdini("OrdiniClientiCriptati.txt");
@@ -84,81 +79,9 @@ public class PanelOrdiniAdmin extends JPanel {
         add(pulsante_da_ordini_admin_a_accesso);
         add(table);
         add(aggiorna);
-
+        ordini_totali.getTableOrdini().fireTableDataChanged();
     }
 
-
-    public class TableOrdiniUser extends AbstractTableModel {
-
-        @Override
-        public Class<?> getColumnClass(int columnIndex) {
-            return String.class;
-        }
-
-        @Override
-        public int getRowCount() {
-            return ordini_totali.size();
-        }
-
-        @Override
-        public int getColumnCount() {
-            return 6;
-        }
-
-
-        @Override
-        public String getColumnName(int columnIndex) {
-            switch (columnIndex) {
-                case 0:
-                    return "Destinazione";
-                case 1:
-                    return "Codice";
-                case 2:
-                    return "Stato";
-                case 3:
-                    return "Peso";
-                case 4:
-                    return "Data";
-                case 5:
-                    return "Valore assicurato";
-            }
-            return null;
-        }
-
-
-        public void setValueAt(Object value, int row, int
-                col) {
-            SpedizioneTabella spedizione = ordini_totali.get(row);
-
-            if (col == 2)  //questo codice mi permette di modificare le celle di quella colonna
-                spedizione.modificaStato((String) value);
-
-            fireTableDataChanged();  //salva le modifiche sul vettore
-        }
-
-
-        @Override
-        public Object getValueAt(int rowIndex, int columnIndex) {
-            SpedizioneTabella spedizione = ordini_totali.get(rowIndex);
-
-
-            switch (columnIndex) {
-                case 0:
-                    return spedizione.toDestinazione();
-                case 1:
-                    return spedizione.toCodice();
-                case 2:
-                    return spedizione.toStato();
-                case 3:
-                    return spedizione.toPeso();
-                case 4:
-                    return spedizione.toData();
-                case 5:
-                    return spedizione.toValoreAssicurato();
-            }
-            return "Unknown";
-        }
-    }
 
 
 }

@@ -6,6 +6,7 @@ import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -145,9 +146,9 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
             destinazione.setBackground(Color.white);
 
 
-            codicegenerato = nome + b.size();
+            codicegenerato = nome + UUID.randomUUID();
 
-            /* codicegenerato = nome + b.get(b.size()-1).toCodice().substring();*/ //il codice generato deve essere unico
+
             codice.setText(codicegenerato);
 
 
