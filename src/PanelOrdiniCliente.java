@@ -48,7 +48,7 @@ public class PanelOrdiniCliente extends JPanel {
             ordini_del_cliente = new Vector<>();
             ordini_totali = new VettoreOrdini(filename);
             for (SpedizioneNormale spedizioneNormale : ordini_totali) {
-                if (spedizioneNormale.codice.startsWith(nome))
+                if (spedizioneNormale.codice.startsWith(nome)) //da modificareeeee
                     ordini_del_cliente.add(spedizioneNormale);
             }
             table.updateUI();

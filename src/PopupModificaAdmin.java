@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 /**
  * PopupModificaAdmin è la classe che fa apparire il menupopup dopo aver premuto il tasto destro sulla riga della tabella contenuta in {@link PanelOrdiniAdmin}.
  * <p>
- * Essa è figlia di {@link JPopupMenu}.
+ * Questa classe  è figlia di {@link JPopupMenu}.
  */
 class PopupModificaAdmin extends JPopupMenu implements ActionListener {
     private int selectedrow;
@@ -14,7 +14,8 @@ class PopupModificaAdmin extends JPopupMenu implements ActionListener {
     private final JMenu modifica;
     private final JMenuItem elimina;
     private VettoreOrdini ordini_totali;
-
+    private JMenuItem menuItem5;
+    private JMenuItem menuItem6;
 
     public PopupModificaAdmin(JTable table) {
         //create poput items
@@ -26,8 +27,8 @@ class PopupModificaAdmin extends JPopupMenu implements ActionListener {
         JMenuItem menuItem2 = new JMenuItem("IN TRANSITO");
         JMenuItem menuItem3 = new JMenuItem("RICEVUTA");
         JMenuItem menuItem4 = new JMenuItem("FALLITA");
-        JMenuItem menuItem5 = new JMenuItem("RIMBORSO RICHIESTO");
-        JMenuItem menuItem6 = new JMenuItem("RIMBORSO EROGATO");
+        menuItem5 = new JMenuItem("RIMBORSO RICHIESTO");
+        menuItem6 = new JMenuItem("RIMBORSO EROGATO");
 
         menuItem1.addActionListener(this);
         menuItem2.addActionListener(this);
@@ -35,19 +36,7 @@ class PopupModificaAdmin extends JPopupMenu implements ActionListener {
         menuItem4.addActionListener(this);
         menuItem5.addActionListener(this);
         menuItem6.addActionListener(this);
-if (table.getValueAt(selectedrow, 2).equals("IN PREPARAZIONE"))
-    menuItem1.setEnabled(false);
-else
-    menuItem1.setEnabled(true);
-        if (table.getValueAt(selectedrow, 5).equals("")) {
-            menuItem5.setEnabled(false);
-            menuItem6.setEnabled(false);
 
-        } else {
-            menuItem5.setEnabled(true);
-            menuItem6.setEnabled(true);
-
-        }
 
         modifica.add(menuItem1);
         modifica.add(new JSeparator());
@@ -99,14 +88,23 @@ else
     }
 
 
-    public void setTasti(boolean flag) {
-        if (flag) {
+    public void setTasti(boolean flag_elimina_o_modifica, boolean flag_rimborso) {
+        if (flag_elimina_o_modifica) {
             modifica.setEnabled(false);
             elimina.setEnabled(true);
         } else {
             modifica.setEnabled(true);
             elimina.setEnabled(false);
         }
+        if (flag_rimborso) {
+            menuItem5.setEnabled(false);
+            menuItem6.setEnabled(false);
+        } else {
+            menuItem5.setEnabled(true);
+            menuItem6.setEnabled(true);
+
+        }
+
 
     }
 }

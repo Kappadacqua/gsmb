@@ -72,7 +72,7 @@ public class PanelOrdiniAdmin extends JPanel {
 
                 selectedrow = selezioneModel.getMinSelectionIndex();//selectdrow=indice della riga
                 popModificaAdmin.setRow(selectedrow, ordini_totali);//popmodifica ottiene l'indice della riga
-                popModificaAdmin.setTasti(table.getValueAt(selectedrow, 2).equals("RIMBORSO EROGATO") || (table.getValueAt(selectedrow, 2).equals("RICEVUTA")));
+                popModificaAdmin.setTasti(table.getValueAt(selectedrow, 2).equals("RIMBORSO EROGATO") || (table.getValueAt(selectedrow, 2).equals("RICEVUTA")), table.getValueAt(selectedrow, 5).equals(""));
                 // se la riga che evidenzio con tasto destro equivale a una di quelle condizioni, allora mostro solo il pulsante relativo a quelle condizioni
 
 

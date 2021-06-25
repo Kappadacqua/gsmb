@@ -4,7 +4,7 @@ import javax.swing.*;
 /**
  * PopupModificaCliente è la classe che fa apparire il menupopup dopo aver premuto il tasto destro sulla riga della tabella contenuta in {@link PanelOrdiniCliente}.
  * <p>
- * Essa è figlia di {@link JPopupMenu}.
+ * Questa classe  è figlia di {@link JPopupMenu}.
  */
 class PopupModificaCliente extends JPopupMenu {
     private int selectedrow;
