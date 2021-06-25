@@ -35,7 +35,10 @@ class PopupModificaAdmin extends JPopupMenu implements ActionListener {
         menuItem4.addActionListener(this);
         menuItem5.addActionListener(this);
         menuItem6.addActionListener(this);
-
+if (table.getValueAt(selectedrow, 2).equals("IN PREPARAZIONE"))
+    menuItem1.setEnabled(false);
+else
+    menuItem1.setEnabled(true);
         if (table.getValueAt(selectedrow, 5).equals("")) {
             menuItem5.setEnabled(false);
             menuItem6.setEnabled(false);

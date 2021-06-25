@@ -25,14 +25,13 @@ public class PanelRegistrazioneCliente extends JPanel {
         username_text = new JTextField("", 25);
         indirizzo_text = new JTextField("", 25);
         password_text = new JTextField("", 25);
+        esito = new JLabel("");
         controllopassword_text = new JTextField("", 25);
         JLabel username_label = new JLabel("inserisci nuovo username");
         JLabel indirizzo_label = new JLabel("inserisci indirizzo");
         JLabel password_label = new JLabel("inserisci password");
         JLabel controllopassword_label = new JLabel("rimetti la password");
-        esito = new JLabel("");
         JButton conferma = new JButton("conferma"); //conferma dell'invio di quei dati
-
         JButton pulsante_da_registrazione_a_accesso_user = new JButton("torna indietro");
         conferma.addActionListener(e -> {
             //tasto ottiene il nome del tasto

@@ -12,6 +12,10 @@ class Main {
 
     public static void main(String[] args) {
 
+      /* SpedizioneNormale no=new SpedizioneNormale("modena","d132d32","IN CONSEGNA",2343);
+
+        VettoreOrdini prova =new VettoreOrdini("OrdiniClientiCriptati.txt");
+        prova.addAndSave(no);*/
         new GSMBFrame();
 
     }

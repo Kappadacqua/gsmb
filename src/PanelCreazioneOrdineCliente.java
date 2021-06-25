@@ -29,9 +29,11 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
     private boolean flagspedizione = false;//FALSE=SPEDIZIONE NORMALE /TRUE =SPEDIZIONE ASSICURATA
     private final JLabel esito;
     private final GSMBFrame frame_principale;
+   /* private PanelOrdiniCliente esperimento;*/
 
     public PanelCreazioneOrdineCliente(GSMBFrame frame_principale) {
         super();
+        /*   esperimento = new PanelOrdiniCliente(frame_principale);*/
         this.frame_principale = frame_principale;
         nome = "";
         esito = new JLabel("");
@@ -181,7 +183,7 @@ public class PanelCreazioneOrdineCliente extends JPanel implements ActionListene
                             codice.setText("");
                             rimborso.setText("");
                             salva.setEnabled(false);
-
+                            /*esperimento.aggiornamento();*/
                         }
                     }, 1000);
         }

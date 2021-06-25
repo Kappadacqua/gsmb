@@ -19,6 +19,9 @@ public class PanelOrdiniAdmin extends JPanel {
         super();
 
         ordini_totali = new VettoreOrdini(filename);
+        if (ordini_totali.size() == 0) {
+
+        }
         JButton aggiorna = new JButton("aggiorna");
         JButton pulsante_da_ordini_admin_a_accesso = new JButton("logout");
         String nome = VettoreCredenziali.CREDENZIALI_ADMIN.toUsername();
@@ -137,6 +140,8 @@ public class PanelOrdiniAdmin extends JPanel {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             SpedizioneTabella spedizione = ordini_totali.get(rowIndex);
+
+
             switch (columnIndex) {
                 case 0:
                     return spedizione.toDestinazione();

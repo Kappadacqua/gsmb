@@ -22,14 +22,16 @@ public class PanelOrdiniCliente extends JPanel {
     public PanelOrdiniCliente(GSMBFrame frame_principale) {
         super();
         nome = "";
-        VettoreOrdini ordini_totali = new VettoreOrdini(filename);
         scritta_benvenuto = new JLabel("");
         JButton aggiorna = new JButton("aggiorna");
         JButton pulsante_da_ordini_user_a_accesso = new JButton("logout");
         JButton pulsante_da_panel_ordini_cliente_a_panel_creazione_ordine_cliente = new JButton("crea un nuovo ordine");
 
 
+        ordini_totali = new VettoreOrdini(filename);
         ordini_del_cliente = new Vector<>();
+
+
         TabelOrdiniUser dataModel = new TabelOrdiniUser(); //non penso funzioni
         table = new JTable(dataModel);
         selezioneModel = table.getSelectionModel();
@@ -39,16 +41,12 @@ public class PanelOrdiniCliente extends JPanel {
         pulsante_da_ordini_user_a_accesso.addActionListener(e -> {
             frame_principale.toCard("Panel accesso");
             ordini_del_cliente = new Vector<>();
-     /*   for(int i=ordini_del_cliente.size();i>0;i--)
-            {
-                ordini_del_cliente.rimuovi(ordini_del_cliente.get(i));
-            }
-*/
         });
 
         aggiorna.addActionListener(e -> {
 
             ordini_del_cliente = new Vector<>();
+            ordini_totali = new VettoreOrdini(filename);
             for (SpedizioneNormale spedizioneNormale : ordini_totali) {
                 if (spedizioneNormale.codice.startsWith(nome))
                     ordini_del_cliente.add(spedizioneNormale);
@@ -95,6 +93,19 @@ public class PanelOrdiniCliente extends JPanel {
     public void setUsername(String username) {
         nome = username;
         scritta_benvenuto.setText("benvenuto" + " " + nome);
+    }
+
+    public void aggiornamento() {
+        {
+
+            ordini_del_cliente = new Vector<>();
+            ordini_totali = new VettoreOrdini(filename);
+            for (SpedizioneNormale spedizioneNormale : ordini_totali) {
+                if (spedizioneNormale.codice.startsWith(nome))
+                    ordini_del_cliente.add(spedizioneNormale);
+            }
+            table.updateUI();
+        }
     }
 
 

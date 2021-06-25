@@ -12,11 +12,11 @@ public class PanelAccesso extends JPanel {
     private final JPasswordField field_password; //campo password criptato
     String nomefile = "CredenzialiCriptate.txt";
     private VettoreCredenziali vettore_credenziali;
-
+  /*  private PanelOrdiniCliente esperimento;*/
     public PanelAccesso(GSMBFrame frame_principale, ActionListener Onpulsanteclick) {
 
         super();
-
+        /*  esperimento = new PanelOrdiniCliente(frame_principale);*/
         label_esito = new JLabel("");
         field_username = new JTextField("", 20);
         field_password = new JPasswordField("", 20);
@@ -25,7 +25,7 @@ public class PanelAccesso extends JPanel {
         JLabel label_pass = new JLabel("Password"); //scritta password
         JButton pulsante_login = new JButton("invio");//pulsante invio
         JButton pulsante_da_accesso_generale_a_registrazione = new JButton("registrati");//pulsante registrati
-        JButton pulsante_da_accesso_generale_a_main = new JButton("da user a ingresso");//pulsante torna al panel ingresso
+        JButton pulsante_da_accesso_generale_a_main = new JButton("torna indietro");//pulsante torna al panel ingresso
         pulsante_login.addActionListener(Onpulsanteclick);
         pulsante_login.addActionListener(e -> {
 
@@ -56,10 +56,12 @@ public class PanelAccesso extends JPanel {
                         }, 1000);
             } else {
                 label_esito.setText("login user avvenuto con successo");
+                /* esperimento.aggiornamento();*/
                 new java.util.Timer().schedule(
                         new java.util.TimerTask() {
                             @Override
                             public void run() {
+
                                 frame_principale.toCard("Panel ordini cliente");
                                 label_esito.setText("");
                                 field_username.setText("");  //mette username vuoto subito dopo aver eseguito il login
