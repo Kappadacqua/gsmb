@@ -13,7 +13,6 @@ public class PanelOrdiniAdmin extends JPanel {
     private final ListSelectionModel selezioneModel;
     private int selectedrow;
     private VettoreOrdini ordini_totali;
-    private TableOrdiniUser dataModel;
 
     //il jtextfield username nascosto manca perchè il nome è scritto nel codice
     public PanelOrdiniAdmin(GSMBFrame frame_principale) {
@@ -24,7 +23,7 @@ public class PanelOrdiniAdmin extends JPanel {
         JButton pulsante_da_ordini_admin_a_accesso = new JButton("logout");
         String nome = VettoreCredenziali.CREDENZIALI_ADMIN.toUsername();
         JLabel scritta_benvenuto = new JLabel("Benvenuto Admin " + nome);
-        dataModel = new TableOrdiniUser();
+        TableOrdiniUser dataModel = new TableOrdiniUser();
         table = new JTable(dataModel);
         JScrollPane scrollpane = new JScrollPane();//non gli piace sa mando dentro table
         table.add(scrollpane);
@@ -37,6 +36,7 @@ public class PanelOrdiniAdmin extends JPanel {
         aggiorna.addActionListener(e -> {
 
             ordini_totali = new VettoreOrdini("OrdiniClientiCriptati.txt");
+            table.updateUI();
             for (SpedizioneNormale spedizioneNormale : ordini_totali) {
                 System.out.println(spedizioneNormale.toStato()); //se cè un solo elemento nel vettore va in errore, ma non dovrebbe essere davvero un problema
             }
